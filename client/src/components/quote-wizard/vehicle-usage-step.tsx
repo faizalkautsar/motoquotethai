@@ -14,11 +14,11 @@ export function VehicleUsageStep() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h3 className="text-xl font-semibold text-foreground mb-2">
+      <div className="bg-gradient-to-r from-orange-100 to-yellow-100 rounded-xl p-4 mb-6 border-2 border-orange-200">
+        <h3 className="text-xl font-bold text-orange-900 mb-2">
           {t('vehicleUsageTitle')}
         </h3>
-        <p className="text-sm text-muted">
+        <p className="text-sm text-orange-700">
           {t('vehicleUsageSubtitle')}
         </p>
       </div>

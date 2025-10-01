@@ -14,11 +14,11 @@ export function DriverInfoStep() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h3 className="text-xl font-semibold text-foreground mb-2">
+      <div className="bg-gradient-to-r from-purple-100 to-pink-100 rounded-xl p-4 mb-6 border-2 border-purple-200">
+        <h3 className="text-xl font-bold text-purple-900 mb-2">
           {t('driverInfoTitle')}
         </h3>
-        <p className="text-sm text-muted">
+        <p className="text-sm text-purple-700">
           {t('driverInfoSubtitle')}
         </p>
       </div>

@@ -21,11 +21,11 @@ export function VehicleInfoStep() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h3 className="text-xl font-semibold text-foreground mb-2">
+      <div className="bg-gradient-to-r from-blue-100 to-purple-100 rounded-xl p-4 mb-6 border-2 border-blue-200">
+        <h3 className="text-xl font-bold text-blue-900 mb-2">
           {t('vehicleInfoTitle')}
         </h3>
-        <p className="text-sm text-muted">
+        <p className="text-sm text-blue-700">
           {t('vehicleInfoSubtitle')}
         </p>
       </div>

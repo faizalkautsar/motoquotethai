@@ -48,12 +48,12 @@ export function CoverageSelectionStep() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h3 className="text-xl font-semibold text-foreground mb-2">
-          Choose Your Coverage Type
+      <div className="bg-gradient-to-r from-indigo-100 to-blue-100 rounded-xl p-4 mb-6 border-2 border-indigo-200">
+        <h3 className="text-xl font-bold text-indigo-900 mb-2">
+          {t('coverageSelectionTitle')}
         </h3>
-        <p className="text-sm text-muted">
-          Select the insurance plan that fits your needs
+        <p className="text-sm text-indigo-700">
+          {t('coverageSelectionSubtitle')}
         </p>
       </div>
       
