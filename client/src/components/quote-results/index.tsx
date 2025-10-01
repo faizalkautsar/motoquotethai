@@ -70,7 +70,7 @@ export function QuoteResults({ open, onOpenChange, quote }: QuoteResultsProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-7xl max-h-[90vh] overflow-y-auto p-0">
-        <div className="bg-gradient-to-r from-primary to-primary/80 text-white px-6 sm:px-8 py-8 rounded-t-xl">
+        <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white px-6 sm:px-8 py-8 rounded-t-xl">
           <div className="flex items-start justify-between mb-4">
             <div>
               <h2 className="text-2xl sm:text-3xl font-bold mb-2">

@@ -27,19 +27,19 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="bg-white border-b border-border sticky top-0 z-50 shadow-sm">
+      <header className="bg-gradient-to-r from-blue-600 to-blue-700 border-b border-blue-800 sticky top-0 z-50 shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 sm:h-20">
             <div className="flex items-center space-x-2">
-              <i className="fas fa-shield-alt text-primary text-2xl sm:text-3xl"></i>
-              <span className="text-xl sm:text-2xl font-bold text-foreground">
+              <i className="fas fa-shield-alt text-yellow-400 text-2xl sm:text-3xl"></i>
+              <span className="text-xl sm:text-2xl font-bold text-white">
                 {t('appName')}
               </span>
             </div>
             
             <div className="flex items-center space-x-4">
               <LanguageToggle />
-              <Button variant="ghost" size="sm" className="hidden sm:flex">
+              <Button variant="ghost" size="sm" className="hidden sm:flex text-white hover:bg-white/20">
                 <i className="fas fa-phone-alt mr-2"></i>
                 <span>{t('contact')}</span>
               </Button>
@@ -55,7 +55,7 @@ export default function Home() {
         <BenefitsSection />
         
         {/* CTA Section */}
-        <section className="py-16 sm:py-20 bg-gradient-to-br from-primary to-primary/80 text-white">
+        <section className="py-16 sm:py-20 bg-gradient-to-br from-orange-500 via-pink-500 to-purple-600 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">
               Ready to Get Started?
@@ -66,7 +66,7 @@ export default function Home() {
             <Button
               size="lg"
               onClick={() => setWizardOpen(true)}
-              className="bg-white text-primary hover:bg-white/95 shadow-lg"
+              className="bg-white text-purple-600 hover:bg-yellow-400 hover:text-purple-700 shadow-lg font-bold"
               data-testid="button-get-quote-cta"
             >
               <span>{t('getQuote')}</span>
@@ -77,7 +77,7 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-foreground text-white py-12">
+      <footer className="bg-gradient-to-br from-slate-800 via-slate-900 to-slate-950 text-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>

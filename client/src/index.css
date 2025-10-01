@@ -4,26 +4,29 @@
 
 @layer base {
   :root {
-    --background: hsl(210, 30%, 96%);
+    --background: hsl(210, 40%, 98%);
     --foreground: hsl(215, 30%, 20%);
     --card: hsl(0, 0%, 100%);
     --card-foreground: hsl(215, 30%, 20%);
     --popover: hsl(0, 0%, 100%);
     --popover-foreground: hsl(215, 30%, 20%);
-    --primary: hsl(221, 83%, 40%);
+    --primary: hsl(221, 83%, 53%);
     --primary-foreground: hsl(0, 0%, 100%);
-    --secondary: hsl(158, 64%, 39%);
+    --primary-light: hsl(221, 83%, 96%);
+    --secondary: hsl(158, 64%, 45%);
     --secondary-foreground: hsl(0, 0%, 100%);
+    --secondary-light: hsl(158, 64%, 96%);
+    --accent: hsl(33, 100%, 54%);
+    --accent-foreground: hsl(0, 0%, 100%);
+    --accent-light: hsl(33, 100%, 96%);
+    --destructive: hsl(0, 84%, 60%);
+    --destructive-foreground: hsl(0, 0%, 100%);
     --muted: hsl(215, 25%, 40%);
     --muted-foreground: hsl(215, 20%, 55%);
-    --accent: hsl(0, 84%, 50%);
-    --accent-foreground: hsl(0, 0%, 100%);
-    --destructive: hsl(0, 84%, 50%);
-    --destructive-foreground: hsl(0, 0%, 100%);
-    --border: hsl(214, 25%, 85%);
-    --input: hsl(214, 25%, 88%);
-    --ring: hsl(221, 83%, 40%);
-    --radius: 0.5rem;
+    --border: hsl(214, 25%, 88%);
+    --input: hsl(214, 25%, 95%);
+    --ring: hsl(221, 83%, 53%);
+    --radius: 0.75rem;
     --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
     --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
     --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);

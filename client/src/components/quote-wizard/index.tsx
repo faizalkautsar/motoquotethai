@@ -162,15 +162,16 @@ export function QuoteWizard({ open, onOpenChange, onQuoteGenerated }: QuoteWizar
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto p-0">
-        <div className="sticky top-0 bg-white border-b border-border z-10 px-6 sm:px-8 py-6">
+        <div className="sticky top-0 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-600 border-b border-blue-700 z-10 px-6 sm:px-8 py-6">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
+            <h2 className="text-2xl sm:text-3xl font-bold text-white">
               {t('wizardTitle')}
             </h2>
             <Button
               variant="ghost"
               size="icon"
               onClick={() => onOpenChange(false)}
+              className="text-white hover:bg-white/20"
               data-testid="button-close-wizard"
             >
               <i className="fas fa-times text-xl"></i>
@@ -186,13 +187,14 @@ export function QuoteWizard({ open, onOpenChange, onQuoteGenerated }: QuoteWizar
               <CurrentStepComponent />
             </div>
             
-            <div className="sticky bottom-0 bg-white border-t border-border px-6 sm:px-8 py-6">
+            <div className="sticky bottom-0 bg-gradient-to-r from-gray-50 to-blue-50 border-t border-border px-6 sm:px-8 py-6">
               <div className="flex items-center justify-between">
                 <Button
                   type="button"
                   variant="outline"
                   onClick={handlePrevious}
                   disabled={currentStepGroup === 0}
+                  className="border-2 border-gray-300 hover:bg-gray-100"
                   data-testid="button-previous"
                 >
                   <i className="fas fa-arrow-left mr-2"></i>
@@ -208,6 +210,7 @@ export function QuoteWizard({ open, onOpenChange, onQuoteGenerated }: QuoteWizar
                     type="button"
                     onClick={handleNext}
                     disabled={submitQuoteMutation.isPending}
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold"
                     data-testid="button-next-submit"
                   >
                     {currentStepGroup === stepGroups.length - 1 ? (

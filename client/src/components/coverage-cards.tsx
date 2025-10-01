@@ -23,9 +23,11 @@ export function CoverageCards({ onSelectCoverage }: CoverageCardsProps) {
         { text: "Authorized repair shop", available: true },
       ],
       price: "฿15,000",
-      bgColor: "bg-primary/5",
-      iconColor: "text-primary",
-      borderColor: "border-primary",
+      bgColor: "bg-gradient-to-br from-blue-50 to-blue-100",
+      iconBg: "bg-blue-500",
+      iconColor: "text-white",
+      borderColor: "border-blue-500",
+      accentColor: "text-blue-600",
     },
     {
       type: "type2",
@@ -40,9 +42,11 @@ export function CoverageCards({ onSelectCoverage }: CoverageCardsProps) {
         { text: "General repair shop", available: false },
       ],
       price: "฿9,000",
-      bgColor: "bg-secondary/5",
-      iconColor: "text-secondary",
-      borderColor: "border-border",
+      bgColor: "bg-gradient-to-br from-green-50 to-green-100",
+      iconBg: "bg-green-500",
+      iconColor: "text-white",
+      borderColor: "border-green-400",
+      accentColor: "text-green-600",
     },
     {
       type: "type3",
@@ -57,14 +61,16 @@ export function CoverageCards({ onSelectCoverage }: CoverageCardsProps) {
         { text: "Budget friendly", available: true },
       ],
       price: "฿3,500",
-      bgColor: "bg-muted/5",
-      iconColor: "text-muted",
-      borderColor: "border-border",
+      bgColor: "bg-gradient-to-br from-purple-50 to-purple-100",
+      iconBg: "bg-purple-500",
+      iconColor: "text-white",
+      borderColor: "border-purple-400",
+      accentColor: "text-purple-600",
     },
   ];
 
   return (
-    <section className="py-16 sm:py-20 bg-white">
+    <section className="py-16 sm:py-20 bg-gradient-to-br from-blue-50 via-white to-green-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
@@ -84,7 +90,7 @@ export function CoverageCards({ onSelectCoverage }: CoverageCardsProps) {
             >
               <CardHeader className={coverage.bgColor}>
                 <div className="flex items-start justify-between mb-4">
-                  <div className={`w-12 h-12 ${coverage.bgColor} rounded-lg flex items-center justify-center`}>
+                  <div className={`w-12 h-12 ${coverage.iconBg} rounded-lg flex items-center justify-center shadow-lg`}>
                     <i className={`fas ${coverage.icon} ${coverage.iconColor} text-xl`}></i>
                   </div>
                   {coverage.recommended && (
@@ -115,7 +121,7 @@ export function CoverageCards({ onSelectCoverage }: CoverageCardsProps) {
                 <div className="border-t border-border pt-4">
                   <div className="text-sm text-muted mb-2">{t('startingFrom')}</div>
                   <div className="flex items-end mb-4">
-                    <span className="text-3xl font-bold text-primary">{coverage.price}</span>
+                    <span className={`text-3xl font-bold ${coverage.accentColor}`}>{coverage.price}</span>
                     <span className="text-muted ml-2 mb-1">{t('perYear')}</span>
                   </div>
                 </div>
