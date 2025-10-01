@@ -1,0 +1,189 @@
+import { useFormContext } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "@/components/ui/form";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Checkbox } from "@/components/ui/checkbox";
+
+export function CoverageSelectionStep() {
+  const { t } = useTranslation();
+  const form = useFormContext();
+
+  const coverageTypes = [
+    {
+      value: 'type1',
+      title: 'Type 1 - Comprehensive',
+      description: 'Full protection including own damage',
+      recommended: true,
+      price: '~฿15,000',
+    },
+    {
+      value: 'type2',
+      title: 'Type 2+ - Major Damage',
+      description: 'Fire, theft & third-party coverage',
+      recommended: false,
+      price: '~฿8,500',
+    },
+    {
+      value: 'type3',
+      title: 'Type 3 - Third Party',
+      description: 'Basic third-party liability only',
+      recommended: false,
+      price: '~฿3,200',
+    },
+  ];
+
+  const additionalOptions = [
+    { id: 'flood', label: 'Flood Coverage', price: '+฿800/year' },
+    { id: 'fire', label: 'Fire Protection', price: '+฿600/year' },
+    { id: 'theft', label: 'Theft Coverage', price: '+฿1,200/year' },
+    { id: 'driver-pa', label: 'Personal Accident for Driver', price: '+฿500/year' },
+    { id: 'passenger', label: 'Passenger Protection', price: '+฿600/year' },
+    { id: 'windshield', label: 'Windshield Protection', price: '+฿400/year' },
+  ];
+
+  return (
+    <div className="space-y-6">
+      <div>
+        <h3 className="text-xl font-semibold text-foreground mb-2">
+          Choose Your Coverage Type
+        </h3>
+        <p className="text-sm text-muted">
+          Select the insurance plan that fits your needs
+        </p>
+      </div>
+      
+      <FormField
+        control={form.control}
+        name="coverageType"
+        render={({ field }) => (
+          <FormItem className="space-y-3">
+            <FormControl>
+              <RadioGroup
+                onValueChange={field.onChange}
+                value={field.value}
+                className="space-y-4"
+              >
+                {coverageTypes.map((coverage) => (
+                  <label
+                    key={coverage.value}
+                    className="relative flex cursor-pointer rounded-lg border-2 border-border bg-white p-6 hover:border-primary transition-colors"
+                    data-testid={`radio-coverage-${coverage.value}`}
+                  >
+                    <RadioGroupItem value={coverage.value} className="sr-only" />
+                    <div className="flex items-start space-x-4 w-full">
+                      <i className="fas fa-shield text-primary text-2xl mt-1"></i>
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between mb-2">
+                          <h4 className="font-semibold text-lg">{coverage.title}</h4>
+                          {coverage.recommended && (
+                            <span className="px-3 py-1 bg-primary text-white text-xs font-semibold rounded-full">
+                              Recommended
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-sm text-muted mb-2">{coverage.description}</p>
+                      </div>
+                      <span className="text-primary font-semibold whitespace-nowrap">{coverage.price}</span>
+                    </div>
+                  </label>
+                ))}
+              </RadioGroup>
+            </FormControl>
+          </FormItem>
+        )}
+      />
+      
+      <FormField
+        control={form.control}
+        name="deductible"
+        render={({ field }) => (
+          <FormItem className="space-y-3">
+            <FormLabel>Deductible Amount <span className="text-accent">*</span></FormLabel>
+            <FormControl>
+              <RadioGroup
+                onValueChange={(value) => field.onChange(parseInt(value))}
+                value={field.value?.toString()}
+                className="space-y-3"
+              >
+                {[
+                  { value: 0, label: '฿0', description: 'No deductible - Higher premium' },
+                  { value: 5000, label: '฿5,000', description: 'Standard deductible - Recommended' },
+                  { value: 10000, label: '฿10,000', description: 'Lower premium option' },
+                  { value: 15000, label: '฿15,000', description: 'Lowest premium' },
+                ].map((deductible) => (
+                  <label
+                    key={deductible.value}
+                    className="relative flex cursor-pointer rounded-lg border-2 border-border bg-white p-4 hover:border-primary transition-colors"
+                    data-testid={`radio-deductible-${deductible.value}`}
+                  >
+                    <RadioGroupItem value={deductible.value.toString()} className="sr-only" />
+                    <div className="flex items-center justify-between w-full">
+                      <div>
+                        <p className="font-semibold">{deductible.label}</p>
+                        <p className="text-sm text-muted">{deductible.description}</p>
+                      </div>
+                    </div>
+                  </label>
+                ))}
+              </RadioGroup>
+            </FormControl>
+          </FormItem>
+        )}
+      />
+      
+      <FormField
+        control={form.control}
+        name="additionalCoverage"
+        render={() => (
+          <FormItem>
+            <FormLabel>Additional Coverage Options</FormLabel>
+            <div className="space-y-3">
+              {additionalOptions.map((option) => (
+                <FormField
+                  key={option.id}
+                  control={form.control}
+                  name="additionalCoverage"
+                  render={({ field }) => {
+                    return (
+                      <FormItem
+                        key={option.id}
+                        className="flex items-start space-x-3 p-4 border-2 border-border rounded-lg hover:border-primary transition-colors"
+                      >
+                        <FormControl>
+                          <Checkbox
+                            checked={field.value?.includes(option.id)}
+                            onCheckedChange={(checked) => {
+                              return checked
+                                ? field.onChange([...(field.value || []), option.id])
+                                : field.onChange(
+                                    field.value?.filter(
+                                      (value: string) => value !== option.id
+                                    )
+                                  )
+                            }}
+                            data-testid={`checkbox-addon-${option.id}`}
+                          />
+                        </FormControl>
+                        <div className="flex-1">
+                          <FormLabel className="font-medium cursor-pointer">
+                            {option.label}
+                          </FormLabel>
+                          <p className="text-sm text-muted">{option.price}</p>
+                        </div>
+                      </FormItem>
+                    )
+                  }}
+                />
+              ))}
+            </div>
+          </FormItem>
+        )}
+      />
+    </div>
+  );
+}
