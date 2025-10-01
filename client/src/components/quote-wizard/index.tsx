@@ -3,7 +3,7 @@ import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { StepIndicator } from "./step-indicator";
@@ -164,9 +164,9 @@ export function QuoteWizard({ open, onOpenChange, onQuoteGenerated }: QuoteWizar
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto p-0 bg-white">
         <div className="sticky top-0 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-600 border-b border-blue-700 z-10 px-6 sm:px-8 py-6">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl sm:text-3xl font-bold text-white">
+            <DialogTitle className="text-2xl sm:text-3xl font-bold text-white">
               {t('wizardTitle')}
-            </h2>
+            </DialogTitle>
             <Button
               variant="ghost"
               size="icon"
