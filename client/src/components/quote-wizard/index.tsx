@@ -8,7 +8,9 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { StepIndicator } from "./step-indicator";
 import { VehicleInfoStep } from "./vehicle-info-step";
+import { VehicleDetailsStep } from "./vehicle-details-step";
 import { DriverInfoStep } from "./driver-info-step";
+import { VehicleUsageStep } from "./vehicle-usage-step";
 import { CoverageSelectionStep } from "./coverage-selection-step";
 import { ContactInfoStep } from "./contact-info-step";
 import { apiRequest, queryClient } from "@/lib/queryClient";
@@ -57,9 +59,9 @@ const wizardSteps = [
 // Simplified grouped steps for UI
 const stepGroups = [
   { steps: [1, 2, 3, 4], component: VehicleInfoStep, title: "Vehicle Information" },
-  { steps: [5, 6, 7, 8], component: VehicleInfoStep, title: "Vehicle Details" },
+  { steps: [5, 6, 7, 8], component: VehicleDetailsStep, title: "Vehicle Details" },
   { steps: [9, 10, 11, 12], component: DriverInfoStep, title: "Driver Information" },
-  { steps: [13, 14, 15, 16], component: DriverInfoStep, title: "Vehicle Usage" },
+  { steps: [13, 14, 15, 16], component: VehicleUsageStep, title: "Vehicle Usage" },
   { steps: [17, 18, 19], component: CoverageSelectionStep, title: "Coverage Selection" },
   { steps: [20], component: ContactInfoStep, title: "Contact Information" },
 ];

@@ -47,6 +47,53 @@ export const translations = {
       carYear: "ปีที่ผลิต",
       transmission: "ประเภทเกียร์",
       
+      // Vehicle Details
+      vehicleDetailsTitle: "รายละเอียดรถยนต์",
+      vehicleDetailsSubtitle: "กรุณากรอกข้อมูลรถยนต์ของคุณ",
+      licensePlate: "ทะเบียนรถ",
+      chassisNumber: "เลขตัวถัง",
+      engineNumber: "เลขเครื่องยนต์",
+      color: "สีรถ",
+      
+      // Driver Info
+      driverInfoTitle: "ข้อมูลผู้ขับขี่",
+      driverInfoSubtitle: "กรุณาให้ข้อมูลเกี่ยวกับผู้ขับขี่หลัก",
+      driverAge: "อายุผู้ขับขี่",
+      drivingExperience: "ประสบการณ์ขับขี่",
+      claimsHistory: "ประวัติการเคลม",
+      hasNCB: "มีส่วนลด NCB",
+      
+      // Vehicle Usage
+      vehicleUsageTitle: "การใช้งานรถยนต์",
+      vehicleUsageSubtitle: "กรุณาบอกเราเกี่ยวกับการใช้งานรถยนต์",
+      vehicleUsage: "ประเภทการใช้งาน",
+      annualMileage: "ระยะทางต่อปี",
+      parkingLocation: "สถานที่จอดรถ",
+      hasModifications: "รถมีการดัดแปลง",
+      
+      // Coverage Selection
+      coverageSelectionTitle: "เลือกความคุ้มครอง",
+      coverageSelectionSubtitle: "เลือกประเภทและความคุ้มครองเพิ่มเติม",
+      coverageType: "ประเภทประกัน",
+      deductible: "ค่าเสียหายส่วนแรก",
+      additionalCoverage: "ความคุ้มครองเพิ่มเติม",
+      
+      // Contact Info
+      contactInfoTitle: "ข้อมูลติดต่อ",
+      contactInfoSubtitle: "กรุณากรอกข้อมูลสำหรับรับใบเสนอราคา",
+      title: "คำนำหน้า",
+      gender: "เพศ",
+      firstName: "ชื่อ",
+      lastName: "นามสกุล",
+      birthDate: "วันเกิด",
+      idCard: "เลขบัตรประชาชน",
+      phone: "เบอร์โทรศัพท์",
+      email: "อีเมล",
+      address: "ที่อยู่",
+      province: "จังหวัด",
+      postalCode: "รหัสไปรษณีย์",
+      occupation: "อาชีพ",
+      
       // Results
       quoteResultsTitle: "ใบเสนอราคาประกันภัยของคุณ",
       quoteResultsSubtitle: "เปรียบเทียบแผนประกันที่เหมาะกับคุณ",
@@ -102,6 +149,53 @@ export const translations = {
       carModel: "Car Model",
       carYear: "Year",
       transmission: "Transmission",
+      
+      // Vehicle Details
+      vehicleDetailsTitle: "Vehicle Details",
+      vehicleDetailsSubtitle: "Please provide your vehicle details",
+      licensePlate: "License Plate",
+      chassisNumber: "Chassis Number",
+      engineNumber: "Engine Number",
+      color: "Color",
+      
+      // Driver Info
+      driverInfoTitle: "Driver Information",
+      driverInfoSubtitle: "Please provide information about the main driver",
+      driverAge: "Driver Age",
+      drivingExperience: "Driving Experience",
+      claimsHistory: "Claims History",
+      hasNCB: "Has NCB Discount",
+      
+      // Vehicle Usage
+      vehicleUsageTitle: "Vehicle Usage",
+      vehicleUsageSubtitle: "Tell us about your vehicle usage",
+      vehicleUsage: "Usage Type",
+      annualMileage: "Annual Mileage",
+      parkingLocation: "Parking Location",
+      hasModifications: "Vehicle Modifications",
+      
+      // Coverage Selection
+      coverageSelectionTitle: "Coverage Selection",
+      coverageSelectionSubtitle: "Choose your coverage type and add-ons",
+      coverageType: "Coverage Type",
+      deductible: "Deductible",
+      additionalCoverage: "Additional Coverage",
+      
+      // Contact Info
+      contactInfoTitle: "Contact Information",
+      contactInfoSubtitle: "Please provide your contact details for the quote",
+      title: "Title",
+      gender: "Gender",
+      firstName: "First Name",
+      lastName: "Last Name",
+      birthDate: "Date of Birth",
+      idCard: "ID Card Number",
+      phone: "Phone Number",
+      email: "Email",
+      address: "Address",
+      province: "Province",
+      postalCode: "Postal Code",
+      occupation: "Occupation",
       
       // Results
       quoteResultsTitle: "Your Insurance Quote",
