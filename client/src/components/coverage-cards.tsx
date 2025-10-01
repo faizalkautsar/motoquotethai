@@ -79,7 +79,7 @@ export function CoverageCards({ onSelectCoverage }: CoverageCardsProps) {
           {coverages.map((coverage) => (
             <Card
               key={coverage.type}
-              className={`border-2 ${coverage.borderColor} hover:shadow-xl transition-all cursor-pointer group`}
+              className={`border-2 ${coverage.borderColor} shadow-md hover:shadow-xl transition-all cursor-pointer group`}
               data-testid={`card-coverage-${coverage.type}`}
             >
               <CardHeader className={coverage.bgColor}>

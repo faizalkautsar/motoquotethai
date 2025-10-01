@@ -28,7 +28,7 @@ export function QuoteCard({
   const period = paymentPeriod === "yearly" ? "/year" : "/month";
 
   return (
-    <Card className={`${recommended ? 'border-2 border-primary' : 'border-2 border-border'} hover:shadow-xl transition-shadow`}>
+    <Card className={`${recommended ? 'border-2 border-primary' : 'border-2 border-border'} shadow-md hover:shadow-xl transition-shadow`} data-testid={`card-${type}`}>
       <CardHeader className={recommended ? 'bg-primary/5' : 'bg-muted/5'}>
         <div className="flex items-start justify-between mb-4">
           <div>
