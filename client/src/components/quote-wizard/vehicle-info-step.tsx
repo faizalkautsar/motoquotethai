@@ -1,5 +1,6 @@
 import { useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
 import {
   FormControl,
   FormField,
@@ -15,9 +16,27 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+const carBrandModels: Record<string, string[]> = {
+  toyota: ["Camry", "Corolla", "Yaris", "Vios", "Altis", "Fortuner", "Hilux"],
+  honda: ["Civic", "Accord", "City", "CR-V", "HR-V", "Jazz"],
+  mazda: ["Mazda2", "Mazda3", "CX-3", "CX-5", "CX-30", "MX-5"],
+  nissan: ["Almera", "Note", "Kicks", "X-Trail", "Terra", "Navara"],
+  isuzu: ["D-Max", "MU-X", "V-Cross"],
+  mitsubishi: ["Mirage", "Attrage", "Pajero Sport", "Triton", "Xpander"],
+  bmw: ["3 Series", "5 Series", "7 Series", "X1", "X3", "X5", "X7"],
+  mercedes: ["C-Class", "E-Class", "S-Class", "GLA", "GLC", "GLE", "GLS"],
+};
+
 export function VehicleInfoStep() {
   const { t } = useTranslation();
   const form = useFormContext();
+  const selectedBrand = form.watch("carBrand");
+
+  useEffect(() => {
+    if (selectedBrand) {
+      form.setValue("carModel", "");
+    }
+  }, [selectedBrand, form]);
 
   return (
     <div className="space-y-6">
@@ -69,19 +88,22 @@ export function VehicleInfoStep() {
               <FormLabel>
                 {t('carModel')} <span className="text-accent">*</span>
               </FormLabel>
-              <Select onValueChange={field.onChange} value={field.value}>
+              <Select 
+                onValueChange={field.onChange} 
+                value={field.value}
+                disabled={!selectedBrand}
+              >
                 <FormControl>
                   <SelectTrigger data-testid="select-car-model">
-                    <SelectValue placeholder="เลือกรุ่น / Select Model" />
+                    <SelectValue placeholder={selectedBrand ? "เลือกรุ่น / Select Model" : "เลือกยี่ห้อก่อน / Select Brand First"} />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="camry">Camry</SelectItem>
-                  <SelectItem value="corolla">Corolla</SelectItem>
-                  <SelectItem value="civic">Civic</SelectItem>
-                  <SelectItem value="accord">Accord</SelectItem>
-                  <SelectItem value="yaris">Yaris</SelectItem>
-                  <SelectItem value="vios">Vios</SelectItem>
+                  {selectedBrand && carBrandModels[selectedBrand]?.map((model) => (
+                    <SelectItem key={model.toLowerCase()} value={model.toLowerCase()}>
+                      {model}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
               <FormMessage />

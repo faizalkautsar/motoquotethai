@@ -3,7 +3,7 @@ import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { StepIndicator } from "./step-indicator";
@@ -167,6 +167,9 @@ export function QuoteWizard({ open, onOpenChange, onQuoteGenerated }: QuoteWizar
             <DialogTitle className="text-2xl sm:text-3xl font-bold text-white">
               {t('wizardTitle')}
             </DialogTitle>
+            <DialogDescription className="sr-only">
+              Complete the quote wizard to get your personalized insurance quote
+            </DialogDescription>
             <Button
               variant="ghost"
               size="icon"

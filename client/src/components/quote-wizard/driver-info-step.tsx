@@ -38,11 +38,17 @@ export function DriverInfoStep() {
                 {['18-25', '26-35', '36-50', '51-65', '65+'].map((age) => (
                   <label
                     key={age}
-                    className="relative flex cursor-pointer rounded-lg border-2 border-border bg-white p-4 hover:border-primary transition-colors"
+                    className={`relative flex cursor-pointer rounded-lg border-2 p-4 transition-all ${
+                      field.value === age
+                        ? 'border-purple-500 bg-gradient-to-br from-purple-50 to-pink-50 shadow-md ring-2 ring-purple-200'
+                        : 'border-gray-300 bg-white hover:border-purple-400 hover:bg-purple-50/50'
+                    }`}
                     data-testid={`radio-driver-age-${age}`}
                   >
                     <RadioGroupItem value={age} className="sr-only" />
-                    <span className="flex-1 text-center font-medium">{age}</span>
+                    <span className={`flex-1 text-center font-semibold ${
+                      field.value === age ? 'text-purple-700' : 'text-gray-700'
+                    }`}>{age}</span>
                   </label>
                 ))}
               </RadioGroup>
@@ -72,11 +78,17 @@ export function DriverInfoStep() {
                 ].map((exp) => (
                   <label
                     key={exp.value}
-                    className="relative flex cursor-pointer rounded-lg border-2 border-border bg-white p-4 hover:border-primary transition-colors"
+                    className={`relative flex cursor-pointer rounded-lg border-2 p-4 transition-all ${
+                      field.value === exp.value
+                        ? 'border-purple-500 bg-gradient-to-br from-purple-50 to-pink-50 shadow-md ring-2 ring-purple-200'
+                        : 'border-gray-300 bg-white hover:border-purple-400 hover:bg-purple-50/50'
+                    }`}
                     data-testid={`radio-experience-${exp.value}`}
                   >
                     <RadioGroupItem value={exp.value} className="sr-only" />
-                    <span className="flex-1 text-center font-medium">{exp.label}</span>
+                    <span className={`flex-1 text-center font-semibold ${
+                      field.value === exp.value ? 'text-purple-700' : 'text-gray-700'
+                    }`}>{exp.label}</span>
                   </label>
                 ))}
               </RadioGroup>
@@ -104,13 +116,19 @@ export function DriverInfoStep() {
                 ].map((claim) => (
                   <label
                     key={claim.value}
-                    className="relative flex cursor-pointer rounded-lg border-2 border-border bg-white p-4 hover:border-primary transition-colors"
+                    className={`relative flex cursor-pointer rounded-lg border-2 p-4 transition-all ${
+                      field.value === claim.value
+                        ? 'border-purple-500 bg-gradient-to-br from-purple-50 to-pink-50 shadow-md ring-2 ring-purple-200'
+                        : 'border-gray-300 bg-white hover:border-purple-400 hover:bg-purple-50/50'
+                    }`}
                     data-testid={`radio-claims-${claim.value}`}
                   >
                     <RadioGroupItem value={claim.value} className="sr-only" />
                     <div className="flex items-center space-x-3 w-full">
                       <i className={`fas ${claim.icon} ${claim.color} text-2xl`}></i>
-                      <span className="flex-1 font-medium">{claim.label}</span>
+                      <span className={`flex-1 font-semibold ${
+                        field.value === claim.value ? 'text-purple-700' : 'text-gray-700'
+                      }`}>{claim.label}</span>
                     </div>
                   </label>
                 ))}
@@ -138,13 +156,19 @@ export function DriverInfoStep() {
                 ].map((ncb) => (
                   <label
                     key={ncb.value}
-                    className="relative flex cursor-pointer rounded-lg border-2 border-border bg-white p-6 hover:border-primary transition-colors"
+                    className={`relative flex cursor-pointer rounded-lg border-2 p-6 transition-all ${
+                      field.value === ncb.value
+                        ? 'border-purple-500 bg-gradient-to-br from-purple-50 to-pink-50 shadow-md ring-2 ring-purple-200'
+                        : 'border-gray-300 bg-white hover:border-purple-400 hover:bg-purple-50/50'
+                    }`}
                     data-testid={`radio-ncb-${ncb.value}`}
                   >
                     <RadioGroupItem value={ncb.value} className="sr-only" />
                     <div className="flex flex-col items-center w-full text-center space-y-2">
                       <i className={`fas ${ncb.icon} ${ncb.color} text-3xl`}></i>
-                      <span className="font-medium">{ncb.label}</span>
+                      <span className={`font-semibold ${
+                        field.value === ncb.value ? 'text-purple-700' : 'text-gray-700'
+                      }`}>{ncb.label}</span>
                     </div>
                   </label>
                 ))}

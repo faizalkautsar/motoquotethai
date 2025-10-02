@@ -42,13 +42,19 @@ export function VehicleUsageStep() {
                 ].map((usage) => (
                   <label
                     key={usage.value}
-                    className="relative flex cursor-pointer rounded-lg border-2 border-border bg-white p-4 hover:border-primary transition-colors"
+                    className={`relative flex cursor-pointer rounded-lg border-2 p-4 transition-all ${
+                      field.value === usage.value
+                        ? 'border-orange-500 bg-gradient-to-br from-orange-50 to-yellow-50 shadow-md ring-2 ring-orange-200'
+                        : 'border-gray-300 bg-white hover:border-orange-400 hover:bg-orange-50/50'
+                    }`}
                     data-testid={`radio-usage-${usage.value}`}
                   >
                     <RadioGroupItem value={usage.value} className="sr-only" />
                     <div className="flex items-center space-x-3 w-full">
-                      <i className={`fas ${usage.icon} text-primary text-2xl`}></i>
-                      <span className="flex-1 font-medium">{usage.label}</span>
+                      <i className={`fas ${usage.icon} ${field.value === usage.value ? 'text-orange-600' : 'text-primary'} text-2xl`}></i>
+                      <span className={`flex-1 font-semibold ${
+                        field.value === usage.value ? 'text-orange-700' : 'text-gray-700'
+                      }`}>{usage.label}</span>
                     </div>
                   </label>
                 ))}
@@ -78,11 +84,17 @@ export function VehicleUsageStep() {
                 ].map((mileage) => (
                   <label
                     key={mileage.value}
-                    className="relative flex cursor-pointer rounded-lg border-2 border-border bg-white p-4 hover:border-primary transition-colors"
+                    className={`relative flex cursor-pointer rounded-lg border-2 p-4 transition-all ${
+                      field.value === mileage.value
+                        ? 'border-orange-500 bg-gradient-to-br from-orange-50 to-yellow-50 shadow-md ring-2 ring-orange-200'
+                        : 'border-gray-300 bg-white hover:border-orange-400 hover:bg-orange-50/50'
+                    }`}
                     data-testid={`radio-mileage-${mileage.value}`}
                   >
                     <RadioGroupItem value={mileage.value} className="sr-only" />
-                    <span className="flex-1 text-center font-medium">{mileage.label}</span>
+                    <span className={`flex-1 text-center font-semibold ${
+                      field.value === mileage.value ? 'text-orange-700' : 'text-gray-700'
+                    }`}>{mileage.label}</span>
                   </label>
                 ))}
               </RadioGroup>
@@ -110,13 +122,19 @@ export function VehicleUsageStep() {
                 ].map((parking) => (
                   <label
                     key={parking.value}
-                    className="relative flex cursor-pointer rounded-lg border-2 border-border bg-white p-4 hover:border-primary transition-colors"
+                    className={`relative flex cursor-pointer rounded-lg border-2 p-4 transition-all ${
+                      field.value === parking.value
+                        ? 'border-orange-500 bg-gradient-to-br from-orange-50 to-yellow-50 shadow-md ring-2 ring-orange-200'
+                        : 'border-gray-300 bg-white hover:border-orange-400 hover:bg-orange-50/50'
+                    }`}
                     data-testid={`radio-parking-${parking.value}`}
                   >
                     <RadioGroupItem value={parking.value} className="sr-only" />
                     <div className="flex items-center space-x-3 w-full">
                       <i className={`fas ${parking.icon} ${parking.color} text-2xl`}></i>
-                      <span className="flex-1 font-medium">{parking.label}</span>
+                      <span className={`flex-1 font-semibold ${
+                        field.value === parking.value ? 'text-orange-700' : 'text-gray-700'
+                      }`}>{parking.label}</span>
                     </div>
                   </label>
                 ))}
@@ -144,13 +162,19 @@ export function VehicleUsageStep() {
                 ].map((mod) => (
                   <label
                     key={mod.value}
-                    className="relative flex cursor-pointer rounded-lg border-2 border-border bg-white p-6 hover:border-primary transition-colors"
+                    className={`relative flex cursor-pointer rounded-lg border-2 p-6 transition-all ${
+                      field.value === mod.value
+                        ? 'border-orange-500 bg-gradient-to-br from-orange-50 to-yellow-50 shadow-md ring-2 ring-orange-200'
+                        : 'border-gray-300 bg-white hover:border-orange-400 hover:bg-orange-50/50'
+                    }`}
                     data-testid={`radio-modifications-${mod.value}`}
                   >
                     <RadioGroupItem value={mod.value} className="sr-only" />
                     <div className="flex flex-col items-center w-full text-center space-y-2">
                       <i className={`fas ${mod.icon} ${mod.color} text-3xl`}></i>
-                      <span className="font-medium">{mod.label}</span>
+                      <span className={`font-semibold ${
+                        field.value === mod.value ? 'text-orange-700' : 'text-gray-700'
+                      }`}>{mod.label}</span>
                     </div>
                   </label>
                 ))}

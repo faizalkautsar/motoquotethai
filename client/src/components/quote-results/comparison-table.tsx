@@ -13,8 +13,8 @@ export function ComparisonTable() {
   ];
 
   return (
-    <div className="mt-8 bg-white rounded-xl p-6 border border-border shadow-md" data-testid="coverage-comparison-table">
-      <h3 className="text-xl font-bold text-foreground mb-6">
+    <div className="mt-8 bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-6 border-2 border-purple-300 shadow-lg" data-testid="coverage-comparison-table">
+      <h3 className="text-2xl font-bold text-purple-900 mb-6">
         {t('compareTitle')}
       </h3>
       

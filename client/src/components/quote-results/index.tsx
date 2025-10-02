@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { QuoteCard } from "./quote-card";
 import { ComparisonTable } from "./comparison-table";
@@ -69,14 +69,16 @@ export function QuoteResults({ open, onOpenChange, quote }: QuoteResultsProps) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-7xl max-h-[90vh] overflow-y-auto p-0">
+      <DialogContent className="max-w-7xl max-h-[90vh] overflow-y-auto p-0 bg-white">
         <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white px-6 sm:px-8 py-8 rounded-t-xl">
           <div className="flex items-start justify-between mb-4">
             <div>
-              <h2 className="text-2xl sm:text-3xl font-bold mb-2">
+              <DialogTitle className="text-2xl sm:text-3xl font-bold mb-2">
                 {t('quoteResultsTitle')}
-              </h2>
-              <p className="text-white/90">{t('quoteResultsSubtitle')}</p>
+              </DialogTitle>
+              <DialogDescription className="text-white/90">
+                {t('quoteResultsSubtitle')}
+              </DialogDescription>
             </div>
             <Button
               variant="ghost"
@@ -90,34 +92,34 @@ export function QuoteResults({ open, onOpenChange, quote }: QuoteResultsProps) {
           </div>
           
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6">
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
-              <div className="text-xs text-white/70 mb-1">Vehicle</div>
-              <div className="font-semibold">{quote.carBrand} {quote.carModel} {quote.carYear}</div>
+            <div className="bg-white rounded-lg p-4 shadow-md border-2 border-white/30">
+              <div className="text-xs text-purple-600 mb-1 font-semibold">Vehicle</div>
+              <div className="font-bold text-gray-800">{quote.carBrand} {quote.carModel} {quote.carYear}</div>
             </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
-              <div className="text-xs text-white/70 mb-1">License</div>
-              <div className="font-semibold">{quote.licensePlate}</div>
+            <div className="bg-white rounded-lg p-4 shadow-md border-2 border-white/30">
+              <div className="text-xs text-purple-600 mb-1 font-semibold">License</div>
+              <div className="font-bold text-gray-800">{quote.licensePlate}</div>
             </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
-              <div className="text-xs text-white/70 mb-1">Customer</div>
-              <div className="font-semibold">{quote.firstName} {quote.lastName}</div>
+            <div className="bg-white rounded-lg p-4 shadow-md border-2 border-white/30">
+              <div className="text-xs text-purple-600 mb-1 font-semibold">Customer</div>
+              <div className="font-bold text-gray-800">{quote.firstName} {quote.lastName}</div>
             </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
-              <div className="text-xs text-white/70 mb-1">Date</div>
-              <div className="font-semibold">{new Date(quote.createdAt).toLocaleDateString('th-TH')}</div>
+            <div className="bg-white rounded-lg p-4 shadow-md border-2 border-white/30">
+              <div className="text-xs text-purple-600 mb-1 font-semibold">Date</div>
+              <div className="font-bold text-gray-800">{new Date(quote.createdAt).toLocaleDateString('th-TH')}</div>
             </div>
           </div>
         </div>
         
-        <div className="px-6 sm:px-8 py-6 border-b border-border">
+        <div className="px-6 sm:px-8 py-6 border-b border-border bg-gradient-to-r from-blue-50 to-purple-50">
           <div className="flex items-center justify-center space-x-4">
-            <span className="text-sm text-muted font-medium">Payment:</span>
-            <div className="inline-flex rounded-lg border border-border p-1 bg-muted/5">
+            <span className="text-sm text-gray-700 font-semibold">Payment:</span>
+            <div className="inline-flex rounded-lg border-2 border-purple-300 p-1 bg-white shadow-sm">
               <Button
                 variant={paymentPeriod === "yearly" ? "default" : "ghost"}
                 size="sm"
                 onClick={() => setPaymentPeriod("yearly")}
-                className={paymentPeriod === "yearly" ? "bg-primary" : ""}
+                className={paymentPeriod === "yearly" ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white" : "hover:bg-purple-50"}
                 data-testid="button-payment-yearly"
               >
                 {t('yearly')}
@@ -126,7 +128,7 @@ export function QuoteResults({ open, onOpenChange, quote }: QuoteResultsProps) {
                 variant={paymentPeriod === "monthly" ? "default" : "ghost"}
                 size="sm"
                 onClick={() => setPaymentPeriod("monthly")}
-                className={paymentPeriod === "monthly" ? "bg-primary" : ""}
+                className={paymentPeriod === "monthly" ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white" : "hover:bg-purple-50"}
                 data-testid="button-payment-monthly"
               >
                 {t('monthly')}
@@ -152,12 +154,12 @@ export function QuoteResults({ open, onOpenChange, quote }: QuoteResultsProps) {
           
           <ComparisonTable />
           
-          <div className="mt-6 bg-accent/5 border border-accent/20 rounded-lg p-4">
+          <div className="mt-6 bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-300 rounded-lg p-5 shadow-md">
             <div className="flex items-start space-x-3">
-              <i className="fas fa-info-circle text-accent text-xl mt-0.5"></i>
+              <i className="fas fa-info-circle text-orange-600 text-2xl mt-0.5"></i>
               <div>
-                <h4 className="font-semibold text-foreground mb-1">Important Note</h4>
-                <p className="text-sm text-muted">
+                <h4 className="font-bold text-orange-900 mb-2">Important Note</h4>
+                <p className="text-sm text-orange-800">
                   Prices shown are estimates. Actual prices may vary based on additional conditions. 
                   Please contact our team for an accurate quote.
                 </p>
@@ -166,11 +168,11 @@ export function QuoteResults({ open, onOpenChange, quote }: QuoteResultsProps) {
           </div>
           
           <div className="mt-8 flex flex-col sm:flex-row gap-4">
-            <Button variant="outline" className="flex-1" data-testid="button-download-pdf">
+            <Button variant="outline" className="flex-1 border-2 border-purple-500 text-purple-700 hover:bg-purple-50 font-bold" data-testid="button-download-pdf">
               <i className="fas fa-download mr-2"></i>
               Download PDF
             </Button>
-            <Button className="flex-1 bg-primary" data-testid="button-contact-agent">
+            <Button className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold shadow-md" data-testid="button-contact-agent">
               <i className="fas fa-phone-alt mr-2"></i>
               Contact Agent
             </Button>
