@@ -22,11 +22,31 @@ import type { QuoteResult } from "@/types/quote";
 import { LanguageToggle } from "@/components/language-toggle";
 
 const stepGroups = [
-  { title: "Vehicle Information", steps: ["vehicleInfo"] },
-  { title: "Driver Information", steps: ["driverInfo"] },
-  { title: "Vehicle Usage", steps: ["vehicleUsage"] },
-  { title: "Coverage Selection", steps: ["coverageSelection"] },
-  { title: "Contact Information", steps: ["contactInfo"] },
+  { 
+    title: "Vehicle Information", 
+    steps: ["vehicleInfo"],
+    fields: ["carBrand", "carModel", "carYear", "transmission", "licensePlate", "chassisNumber", "engineNumber", "color"] as const
+  },
+  { 
+    title: "Driver Information", 
+    steps: ["driverInfo"],
+    fields: ["driverAge", "drivingExperience", "claimsHistory", "hasNCB"] as const
+  },
+  { 
+    title: "Vehicle Usage", 
+    steps: ["vehicleUsage"],
+    fields: ["vehicleUsage", "annualMileage", "parkingLocation", "hasModifications"] as const
+  },
+  { 
+    title: "Coverage Selection", 
+    steps: ["coverageSelection"],
+    fields: ["coverageType", "deductible", "additionalCoverage"] as const
+  },
+  { 
+    title: "Contact Information", 
+    steps: ["contactInfo"],
+    fields: ["title", "gender", "firstName", "lastName", "birthDate", "idCard", "phone", "email", "address", "province", "postalCode", "occupation"] as const
+  },
 ];
 
 export default function WizardPage() {
@@ -100,14 +120,23 @@ export default function WizardPage() {
   });
 
   const handleNext = async () => {
-    const isValid = await form.trigger();
+    // Get fields for current step
+    const currentFields = stepGroups[currentStepGroup].fields;
+    
+    // Trigger validation for current step fields
+    const isValid = await form.trigger(currentFields as any);
+    
     if (isValid) {
       if (currentStepGroup < stepGroups.length - 1) {
         setCurrentStepGroup(currentStepGroup + 1);
       } else {
-        const formData = form.getValues();
-        console.log("Submitting form data:", formData);
-        submitQuoteMutation.mutate(formData as QuoteFormData);
+        // On final step, validate all fields before submitting
+        const allValid = await form.trigger();
+        if (allValid) {
+          const formData = form.getValues();
+          console.log("Submitting form data:", formData);
+          submitQuoteMutation.mutate(formData as QuoteFormData);
+        }
       }
     }
   };

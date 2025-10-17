@@ -4,6 +4,19 @@
 
 This is a bilingual (Thai/English) car insurance quote calculator web application. The system allows users to fill out comprehensive vehicle and driver information through a multi-step wizard interface and receive instant insurance quotes for three coverage types (Type 1, Type 2, and Type 3). The application features a modern, responsive design with internationalization support and provides real-time quote calculations based on multiple risk factors.
 
+## Recent Changes (October 17, 2025)
+
+**Wizard Refactoring**: The quote wizard has been refactored from a dialog/modal implementation to a dedicated page at `/wizard` route for better user experience and navigation.
+
+- Created standalone wizard page at `/wizard` with full-screen layout
+- Updated all trigger points on home page to navigate to `/wizard` instead of opening dialog  
+- Implemented step-wise validation for each wizard step with proper schema validation
+- Fixed critical validation bug: merged all step-level schemas into completeQuoteSchema to enforce .min(1) constraints
+- Added close button in wizard header to return to home page
+- Quote results still shown in modal overlay, then navigates back to home after closing
+
+**Known Issue**: Car model field validation shows error even when value appears selected in UI - investigating form state synchronization
+
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.

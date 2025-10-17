@@ -111,7 +111,15 @@ export const contactInfoSchema = z.object({
   occupation: z.string().min(1, "Please select occupation"),
 });
 
-export const completeQuoteSchema = insertQuoteSchema.extend({
-  carYear: z.number(),
-  deductible: z.number(),
-});
+// Complete validation schema with all step validations merged
+export const completeQuoteSchema = vehicleInfoSchema
+  .merge(vehicleDetailsSchema)
+  .merge(driverInfoSchema)
+  .merge(vehicleUsageSchema)
+  .merge(coverageSelectionSchema)
+  .merge(contactInfoSchema)
+  .extend({
+    type1Price: z.number().optional(),
+    type2Price: z.number().optional(),
+    type3Price: z.number().optional(),
+  });
