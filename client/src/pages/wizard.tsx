@@ -38,11 +38,8 @@ export default function WizardPage() {
   const [currentQuote, setCurrentQuote] = useState<QuoteResult | null>(null);
 
   const form = useForm<QuoteFormData>({
-    resolver: zodResolver(
-      currentStepGroup === stepGroups.length - 1
-        ? completeQuoteSchema
-        : z.any(),
-    ),
+    resolver: zodResolver(completeQuoteSchema),
+    mode: "onChange",
     defaultValues: {
       carBrand: "",
       carModel: "",
