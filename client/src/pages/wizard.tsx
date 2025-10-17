@@ -135,6 +135,8 @@ export default function WizardPage() {
     if (isValid) {
       if (currentStepGroup < stepGroups.length - 1) {
         setCurrentStepGroup(currentStepGroup + 1);
+        // Scroll to top of the page
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
         // On final step, validate all fields before submitting
         const allValid = await form.trigger();
@@ -150,6 +152,8 @@ export default function WizardPage() {
   const handlePrevious = () => {
     if (currentStepGroup > 0) {
       setCurrentStepGroup(currentStepGroup - 1);
+      // Scroll to top of the page
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
