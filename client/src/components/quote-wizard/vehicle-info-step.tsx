@@ -1,6 +1,6 @@
 import { useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import {
   FormControl,
   FormField,
@@ -31,10 +31,13 @@ export function VehicleInfoStep() {
   const { t } = useTranslation();
   const form = useFormContext();
   const selectedBrand = form.watch("carBrand");
+  const previousBrand = useRef(selectedBrand);
 
   useEffect(() => {
-    if (selectedBrand) {
-      form.setValue("carModel", "");
+    // Only reset carModel if brand actually changed
+    if (selectedBrand && selectedBrand !== previousBrand.current) {
+      form.setValue("carModel", "", { shouldValidate: false });
+      previousBrand.current = selectedBrand;
     }
   }, [selectedBrand, form]);
 
@@ -88,9 +91,12 @@ export function VehicleInfoStep() {
               <FormLabel>
                 {t('carModel')} <span className="text-accent">*</span>
               </FormLabel>
-              <Select 
-                onValueChange={field.onChange} 
-                value={field.value}
+              <Select
+                onValueChange={(value) => {
+                  field.onChange(value);
+                  form.trigger("carModel");
+                }}
+                value={field.value || ""}
                 disabled={!selectedBrand}
               >
                 <FormControl>

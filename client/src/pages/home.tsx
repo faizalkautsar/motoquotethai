@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useLocation } from "wouter";
-import { LanguageToggle } from "@/components/language-toggle";
+import { Header } from "@/components/header";
 import { HeroSection } from "@/components/hero-section";
 import { CoverageCards } from "@/components/coverage-cards";
 import { BenefitsSection } from "@/components/benefits-section";
@@ -20,29 +20,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="bg-white sticky top-0 z-50 ">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16 sm:h-20">
-            <div className="flex items-center space-x-2">
-              <i className="fas fa-shield-alt text-accent text-2xl sm:text-3xl"></i>
-              <span className="text-xl sm:text-2xl font-bold text-primary">
-                {t('appName')}
-              </span>
-              <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="4" cy="4" r="4" className="fill-accent" />
-              </svg>
-            </div>
-
-            <div className="flex items-center space-x-4">
-              <LanguageToggle />
-              <Button variant="default" size="default" onClick={handleGetQuote} className="hidden sm:flex">
-                {t('getQuote')}
-              </Button>
-            </div>
-          </div>
-        </div>
-      </header>
+      <Header onCtaClick={handleGetQuote} showCta={true} />
 
       {/* Main Content */}
       <main>
