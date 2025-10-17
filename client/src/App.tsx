@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Home from "@/pages/home";
 import WizardPage from "@/pages/wizard";
 import QuoteReview from "@/pages/quote-review";
+import PolicyIssuance from "@/pages/policy-issuance";
 import NotFound from "@/pages/not-found";
 import "./lib/i18n";
 
@@ -15,6 +16,7 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/get-your-quote" component={WizardPage} />
       <Route path="/your-quote/:id" component={QuoteReview} />
+      <Route path="/your-policy/:id" component={PolicyIssuance} />
       <Route component={NotFound} />
     </Switch>
   );

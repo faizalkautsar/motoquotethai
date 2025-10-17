@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useLocation } from 'wouter';
 import { useQuery } from '@tanstack/react-query';
 import { Header } from '@/components/header';
@@ -357,6 +357,11 @@ export default function QuoteReview() {
     const [paymentPeriod, setPaymentPeriod] = useState<'yearly' | 'monthly'>('yearly');
     const [showConfirmDialog, setShowConfirmDialog] = useState(false);
     const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
+    const [isActivating, setIsActivating] = useState(false);
+
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, []);
 
     // Fetch quote details from API
     const {
@@ -692,16 +697,52 @@ export default function QuoteReview() {
                 </div>
 
                 {/* Confirmation Dialog */}
-                <Dialog open={showConfirmDialog} onOpenChange={setShowConfirmDialog}>
+                <Dialog open={showConfirmDialog} onOpenChange={(open) => {
+                    if (!isActivating) {
+                        setShowConfirmDialog(open);
+                    }
+                }}>
                     <DialogContent className="max-w-2xl">
-                        <DialogHeader>
-                            <DialogTitle className="text-2xl font-bold text-primary">Confirm Quote Activation</DialogTitle>
-                            <DialogDescription className="text-base">
-                                Please review your quote details before activating
-                            </DialogDescription>
-                        </DialogHeader>
+                        {isActivating ? (
+                            // Loading State
+                            <>
+                                <DialogHeader>
+                                    <DialogTitle className="text-2xl font-bold text-primary">Activating Your Policy</DialogTitle>
+                                </DialogHeader>
+                                <div className="py-12">
+                                    <div className="flex flex-col items-center justify-center space-y-6">
+                                        <Loader2 className="w-16 h-16 text-accent animate-spin" />
+                                        <div className="text-center space-y-2">
+                                            <h3 className="text-xl font-semibold text-foreground">
+                                                Please wait while we activate your policy
+                                            </h3>
+                                            <p className="text-muted-foreground">This may take a few moments...</p>
+                                        </div>
+                                        <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 w-full max-w-md">
+                                            <div className="flex items-start space-x-3">
+                                                <i className="fas fa-exclamation-circle text-amber-600 mt-0.5"></i>
+                                                <div className="text-sm text-amber-800">
+                                                    <p className="font-semibold mb-1">Please do not close this page</p>
+                                                    <p>
+                                                        We're processing your policy activation. Closing this page may interrupt the process.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </>
+                        ) : (
+                            // Confirmation State
+                            <>
+                                <DialogHeader>
+                                    <DialogTitle className="text-2xl font-bold text-primary">Confirm Quote Activation</DialogTitle>
+                                    <DialogDescription className="text-base">
+                                        Please review your quote details before activating
+                                    </DialogDescription>
+                                </DialogHeader>
 
-                        <div className="space-y-4 py-4">
+                                <div className="space-y-4 py-4">
                             {/* Quote Summary */}
                             <div className="bg-background rounded-lg p-4 border border-border">
                                 <h3 className="font-semibold text-foreground mb-3">Quote Summary</h3>
@@ -762,7 +803,7 @@ export default function QuoteReview() {
                                     <div className="text-sm text-amber-800">
                                         <p className="font-semibold mb-1">Important</p>
                                         <p>
-                                            By activating this quote, you agree to proceed with the insurance policy based on the 
+                                            By activating this quote, you agree to proceed with the insurance policy based on the
                                             terms and conditions outlined. This action will initiate the policy activation process.
                                         </p>
                                     </div>
@@ -774,19 +815,27 @@ export default function QuoteReview() {
                             <Button variant="outline" onClick={() => setShowConfirmDialog(false)} className="flex-1">
                                 Cancel
                             </Button>
-                            <Button 
-                                className="flex-1" 
+                            <Button
+                                className="flex-1"
                                 onClick={() => {
-                                    // Handle activation logic here
-                                    console.log('Quote activated:', quoteData?.number);
-                                    setShowConfirmDialog(false);
-                                    // You can add navigation or success message here
+                                    setIsActivating(true);
+
+                                    // Simulate 5 second activation process
+                                    setTimeout(() => {
+                                        console.log('Quote activated:', quoteData?.number);
+                                        setIsActivating(false);
+                                        setShowConfirmDialog(false);
+                                        // Redirect to policy issuance page
+                                        navigate(`/your-policy/${id}`);
+                                    }, 5000);
                                 }}
                             >
                                 <i className="fas fa-check-circle mr-2"></i>
                                 Confirm Activation
                             </Button>
                         </DialogFooter>
+                                </>
+                            )}
                     </DialogContent>
                 </Dialog>
             </div>

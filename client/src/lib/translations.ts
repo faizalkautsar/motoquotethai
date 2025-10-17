@@ -2,7 +2,7 @@ export const translations = {
   th: {
     translation: {
       // Header
-      appName: "ประกันภัยรถยนต์",
+      appName: "MOTORCOVER",
       contact: "ติดต่อเรา",
 
       // Hero Section
