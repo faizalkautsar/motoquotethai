@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
+import { Globe } from "lucide-react";
 
 export function LanguageToggle() {
   const { i18n } = useTranslation();
@@ -14,10 +15,9 @@ export function LanguageToggle() {
       variant="outline"
       size="sm"
       onClick={toggleLanguage}
-      className="flex items-center space-x-2 bg-white/20 border-white/30 text-white hover:bg-white/30 hover:border-white"
       data-testid="language-toggle"
     >
-      <i className="fas fa-globe"></i>
+      <Globe className="w-4 h-4" />
       <span className="font-medium">
         {i18n.language === "th" ? "EN" : "TH"}
       </span>

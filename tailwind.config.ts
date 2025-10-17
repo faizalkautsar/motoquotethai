@@ -46,8 +46,8 @@ export default {
         ring: "hsl(var(--ring))",
       },
       fontFamily: {
-        sans: ["Inter", "Kanit", "sans-serif"],
-        thai: ["Kanit", "sans-serif"],
+        sans: ["League Spartan", "sans-serif"],
+        thai: ["League Spartan", "Kanit", "sans-serif"],
       },
       spacing: {
         '5': '20px',

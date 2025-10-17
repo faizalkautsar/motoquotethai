@@ -4,14 +4,16 @@ export const translations = {
       // Header
       appName: "ประกันภัยรถยนต์",
       contact: "ติดต่อเรา",
-      
+
       // Hero Section
-      heroTitle: "ประกันภัยรถยนต์\nที่คุ้มครองครบถ้วน",
+      heroTitle: "ประกันภัยที่สร้างขึ้น\nเพื่อความสบายใจ",
       heroSubtitle: "เปรียบเทียบแผนประกัน พ.ร.บ. และประกันภัยชั้น 1, 2, 3 ได้ในคลิกเดียว รับใบเสนอราคาภายใน 2 นาที",
       getQuote: "รับใบเสนอราคาฟรี",
       howItWorks: "วิธีการใช้งาน",
-      
+
       // Benefits
+      benefitsTitle: "ทำไมต้องเลือกเรา",
+      benefitsSubtitle: "สัมผัสบริการประกันภัยที่ดีที่สุดกับสิทธิประโยชน์ครบครันของเรา",
       benefit1Title: "รับใบเสนอราคาทันที",
       benefit1Desc: "เพียง 2 นาที รับใบเสนอราคาจากบริษัทประกันชั้นนำหลายราย",
       benefit2Title: "เปรียบเทียบราคาได้",
@@ -20,7 +22,7 @@ export const translations = {
       benefit3Desc: "ข้อมูลของคุณถูกเข้ารหัสและปลอดภัย 100%",
       benefit4Title: "ฝ่ายบริการลูกค้า 24/7",
       benefit4Desc: "ทีมงานพร้อมช่วยเหลือคุณตลอด 24 ชั่วโมง",
-      
+
       // Coverage Types
       coverageTitle: "เลือกประกันที่เหมาะกับคุณ",
       coverageSubtitle: "เปรียบเทียบความคุ้มครองแต่ละประเภท เพื่อหาแผนที่ตอบโจทย์คุณมากที่สุด",
@@ -31,14 +33,14 @@ export const translations = {
       startingFrom: "เริ่มต้น",
       perYear: "/ปี",
       selectPlan: "เลือกแผนนี้",
-      
+
       // Wizard
       wizardTitle: "ขอใบเสนอราคาประกันภัย",
       step: "ขั้นตอน",
       next: "ถัดไป",
       previous: "ย้อนกลับ",
       submit: "รับใบเสนอราคา",
-      
+
       // Vehicle Info
       vehicleInfoTitle: "ยี่ห้อและรุ่นรถยนต์ของคุณ",
       vehicleInfoSubtitle: "กรุณาเลือกยี่ห้อและรุ่นรถยนต์เพื่อรับใบเสนอราคาที่แม่นยำ",
@@ -46,7 +48,7 @@ export const translations = {
       carModel: "รุ่นรถยนต์",
       carYear: "ปีที่ผลิต",
       transmission: "ประเภทเกียร์",
-      
+
       // Vehicle Details
       vehicleDetailsTitle: "รายละเอียดรถยนต์",
       vehicleDetailsSubtitle: "กรุณากรอกข้อมูลรถยนต์ของคุณ",
@@ -54,7 +56,7 @@ export const translations = {
       chassisNumber: "เลขตัวถัง",
       engineNumber: "เลขเครื่องยนต์",
       color: "สีรถ",
-      
+
       // Driver Info
       driverInfoTitle: "ข้อมูลผู้ขับขี่",
       driverInfoSubtitle: "กรุณาให้ข้อมูลเกี่ยวกับผู้ขับขี่หลัก",
@@ -62,7 +64,7 @@ export const translations = {
       drivingExperience: "ประสบการณ์ขับขี่",
       claimsHistory: "ประวัติการเคลม",
       hasNCB: "มีส่วนลด NCB",
-      
+
       // Vehicle Usage
       vehicleUsageTitle: "การใช้งานรถยนต์",
       vehicleUsageSubtitle: "กรุณาบอกเราเกี่ยวกับการใช้งานรถยนต์",
@@ -70,14 +72,14 @@ export const translations = {
       annualMileage: "ระยะทางต่อปี",
       parkingLocation: "สถานที่จอดรถ",
       hasModifications: "รถมีการดัดแปลง",
-      
+
       // Coverage Selection
       coverageSelectionTitle: "เลือกความคุ้มครอง",
       coverageSelectionSubtitle: "เลือกประเภทและความคุ้มครองเพิ่มเติม",
       coverageType: "ประเภทประกัน",
       deductible: "ค่าเสียหายส่วนแรก",
       additionalCoverage: "ความคุ้มครองเพิ่มเติม",
-      
+
       // Contact Info
       contactInfoTitle: "ข้อมูลติดต่อ",
       contactInfoSubtitle: "กรุณากรอกข้อมูลสำหรับรับใบเสนอราคา",
@@ -93,7 +95,7 @@ export const translations = {
       province: "จังหวัด",
       postalCode: "รหัสไปรษณีย์",
       occupation: "อาชีพ",
-      
+
       // Results
       quoteResultsTitle: "ใบเสนอราคาประกันภัยของคุณ",
       quoteResultsSubtitle: "เปรียบเทียบแผนประกันที่เหมาะกับคุณ",
@@ -105,16 +107,18 @@ export const translations = {
   en: {
     translation: {
       // Header
-      appName: "Motor Insurance",
+      appName: "MOTORCOVER",
       contact: "Contact",
-      
+
       // Hero Section
-      heroTitle: "Comprehensive\nMotor Insurance",
+      heroTitle: "Insurance built\nfor Peace of Mind",
       heroSubtitle: "Compare Compulsory & Voluntary insurance plans (Type 1, 2, 3) in one click. Get your quote in 2 minutes",
       getQuote: "Get Free Quote",
       howItWorks: "How It Works",
-      
+
       // Benefits
+      benefitsTitle: "Why Choose Us",
+      benefitsSubtitle: "Experience the best insurance service with our comprehensive benefits",
       benefit1Title: "Instant Quote",
       benefit1Desc: "Get quotes from multiple top insurers in just 2 minutes",
       benefit2Title: "Easy Comparison",
@@ -123,7 +127,7 @@ export const translations = {
       benefit3Desc: "Your data is encrypted and 100% secure",
       benefit4Title: "24/7 Support",
       benefit4Desc: "Our team is ready to help you around the clock",
-      
+
       // Coverage Types
       coverageTitle: "Choose Your Coverage",
       coverageSubtitle: "Compare coverage types to find the plan that suits you best",
@@ -134,14 +138,14 @@ export const translations = {
       startingFrom: "Starting from",
       perYear: "/year",
       selectPlan: "Select Plan",
-      
+
       // Wizard
       wizardTitle: "Get Your Insurance Quote",
       step: "Step",
       next: "Next",
       previous: "Previous",
       submit: "Get Quote",
-      
+
       // Vehicle Info
       vehicleInfoTitle: "Your Vehicle Information",
       vehicleInfoSubtitle: "Please select your vehicle brand and model for accurate quote",
@@ -149,7 +153,7 @@ export const translations = {
       carModel: "Car Model",
       carYear: "Year",
       transmission: "Transmission",
-      
+
       // Vehicle Details
       vehicleDetailsTitle: "Vehicle Details",
       vehicleDetailsSubtitle: "Please provide your vehicle details",
@@ -157,7 +161,7 @@ export const translations = {
       chassisNumber: "Chassis Number",
       engineNumber: "Engine Number",
       color: "Color",
-      
+
       // Driver Info
       driverInfoTitle: "Driver Information",
       driverInfoSubtitle: "Please provide information about the main driver",
@@ -165,7 +169,7 @@ export const translations = {
       drivingExperience: "Driving Experience",
       claimsHistory: "Claims History",
       hasNCB: "Has NCB Discount",
-      
+
       // Vehicle Usage
       vehicleUsageTitle: "Vehicle Usage",
       vehicleUsageSubtitle: "Tell us about your vehicle usage",
@@ -173,14 +177,14 @@ export const translations = {
       annualMileage: "Annual Mileage",
       parkingLocation: "Parking Location",
       hasModifications: "Vehicle Modifications",
-      
+
       // Coverage Selection
       coverageSelectionTitle: "Coverage Selection",
       coverageSelectionSubtitle: "Choose your coverage type and add-ons",
       coverageType: "Coverage Type",
       deductible: "Deductible",
       additionalCoverage: "Additional Coverage",
-      
+
       // Contact Info
       contactInfoTitle: "Contact Information",
       contactInfoSubtitle: "Please provide your contact details for the quote",
@@ -196,7 +200,7 @@ export const translations = {
       province: "Province",
       postalCode: "Postal Code",
       occupation: "Occupation",
-      
+
       // Results
       quoteResultsTitle: "Your Insurance Quote",
       quoteResultsSubtitle: "Compare plans that suit you",
