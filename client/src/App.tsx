@@ -12,7 +12,7 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
-      <Route path="/wizard" component={WizardPage} />
+      <Route path="/get-your-quote" component={WizardPage} />
       <Route component={NotFound} />
     </Switch>
   );

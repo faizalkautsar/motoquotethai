@@ -14,7 +14,7 @@ export function Header({ onCtaClick, showCta = true, onClose, showClose = false 
   const { t } = useTranslation();
 
   return (
-    <header className="bg-white border-b border-border sticky top-0 z-50 shadow-sm">
+    <header className="bg-white sticky top-0 z-50 ">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 sm:h-20">
           <div className="flex items-center space-x-2">

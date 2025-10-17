@@ -11,11 +11,11 @@ export default function Home() {
   const [, navigate] = useLocation();
 
   const handleGetQuote = () => {
-    navigate("/wizard");
+    navigate("/get-your-quote");
   };
 
   const handleSelectCoverage = (type: string) => {
-    navigate("/wizard");
+    navigate("/get-your-quote");
   };
 
   return (
