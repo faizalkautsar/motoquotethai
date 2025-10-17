@@ -4,6 +4,14 @@ import { useQuery } from '@tanstack/react-query';
 import { Header } from '@/components/header';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+} from '@/components/ui/dialog';
 import { Loader2, ShieldCheck, Shield, Car } from 'lucide-react';
 
 const testResponse = {
@@ -347,6 +355,8 @@ export default function QuoteReview() {
     const { id } = useParams();
     const [, navigate] = useLocation();
     const [paymentPeriod, setPaymentPeriod] = useState<'yearly' | 'monthly'>('yearly');
+    const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+    const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
 
     // Fetch quote details from API
     const {
@@ -669,15 +679,116 @@ export default function QuoteReview() {
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex flex-col sm:flex-row gap-4">
-                    <Button variant="outline" onClick={handleBackToHome} className="flex-1">
-                        Back to Home
-                    </Button>
-                    <Button className="flex-1">
-                        <i className="fas fa-check-circle mr-2"></i>
-                        Activate Quote
-                    </Button>
+                <div className="sticky bottom-0 left-0 right-0 bg-white border-t border-border px-4 sm:px-6 lg:px-8 py-4 -mx-4 sm:-mx-6 lg:-mx-8 mt-8 z-10">
+                    <div className="max-w-7xl mx-auto flex flex-col sm:flex-row gap-4">
+                        <Button variant="outline" onClick={handleBackToHome} className="flex-1">
+                            Back to Home
+                        </Button>
+                        <Button className="flex-1" onClick={() => setShowConfirmDialog(true)}>
+                            <i className="fas fa-check-circle mr-2"></i>
+                            Activate Quote
+                        </Button>
+                    </div>
                 </div>
+
+                {/* Confirmation Dialog */}
+                <Dialog open={showConfirmDialog} onOpenChange={setShowConfirmDialog}>
+                    <DialogContent className="max-w-2xl">
+                        <DialogHeader>
+                            <DialogTitle className="text-2xl font-bold text-primary">Confirm Quote Activation</DialogTitle>
+                            <DialogDescription className="text-base">
+                                Please review your quote details before activating
+                            </DialogDescription>
+                        </DialogHeader>
+
+                        <div className="space-y-4 py-4">
+                            {/* Quote Summary */}
+                            <div className="bg-background rounded-lg p-4 border border-border">
+                                <h3 className="font-semibold text-foreground mb-3">Quote Summary</h3>
+                                <div className="grid grid-cols-2 gap-3 text-sm">
+                                    <div>
+                                        <span className="text-muted-foreground">Quote Number:</span>
+                                        <p className="font-medium text-foreground">{quoteData?.number}</p>
+                                    </div>
+                                    <div>
+                                        <span className="text-muted-foreground">Status:</span>
+                                        <p className="font-medium text-foreground">{quoteData?.status}</p>
+                                    </div>
+                                    <div>
+                                        <span className="text-muted-foreground">Policy Term:</span>
+                                        <p className="font-medium text-foreground">{quoteData?.policyTerm}</p>
+                                    </div>
+                                    <div>
+                                        <span className="text-muted-foreground">Payment Scheme:</span>
+                                        <p className="font-medium text-foreground">{quoteData?.paymentScheme}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Coverage Period */}
+                            <div className="bg-background rounded-lg p-4 border border-border">
+                                <h3 className="font-semibold text-foreground mb-3">Coverage Period</h3>
+                                <div className="text-sm">
+                                    <span className="text-muted-foreground">From:</span>
+                                    <p className="font-medium text-foreground mb-2">{quoteData?.startDate}</p>
+                                    <span className="text-muted-foreground">To:</span>
+                                    <p className="font-medium text-foreground">{quoteData?.endDate}</p>
+                                </div>
+                            </div>
+
+                            {/* Pricing */}
+                            <div className="bg-accent/10 rounded-lg p-4 border border-accent/20">
+                                <h3 className="font-semibold text-foreground mb-3">Total Amount</h3>
+                                <div className="flex items-baseline justify-between">
+                                    <div>
+                                        <p className="text-3xl font-bold text-primary">
+                                            ฿{Number(quoteData?.totalPayableAmount || 0).toLocaleString()}
+                                        </p>
+                                        <p className="text-sm text-muted-foreground mt-1">
+                                            {paymentPeriod === 'yearly' ? 'Per Year' : 'Per Month'}
+                                        </p>
+                                    </div>
+                                    <div className="text-right text-sm">
+                                        <p className="text-muted-foreground">Net Amount</p>
+                                        <p className="font-semibold">฿{Number(quoteData?.netAmount || 0).toLocaleString()}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Terms Agreement */}
+                            <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
+                                <div className="flex items-start space-x-2">
+                                    <i className="fas fa-exclamation-triangle text-amber-600 mt-0.5"></i>
+                                    <div className="text-sm text-amber-800">
+                                        <p className="font-semibold mb-1">Important</p>
+                                        <p>
+                                            By activating this quote, you agree to proceed with the insurance policy based on the 
+                                            terms and conditions outlined. This action will initiate the policy activation process.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <DialogFooter className="flex flex-col sm:flex-row gap-3">
+                            <Button variant="outline" onClick={() => setShowConfirmDialog(false)} className="flex-1">
+                                Cancel
+                            </Button>
+                            <Button 
+                                className="flex-1" 
+                                onClick={() => {
+                                    // Handle activation logic here
+                                    console.log('Quote activated:', quoteData?.number);
+                                    setShowConfirmDialog(false);
+                                    // You can add navigation or success message here
+                                }}
+                            >
+                                <i className="fas fa-check-circle mr-2"></i>
+                                Confirm Activation
+                            </Button>
+                        </DialogFooter>
+                    </DialogContent>
+                </Dialog>
             </div>
         </div>
     );
