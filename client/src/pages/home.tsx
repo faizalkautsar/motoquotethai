@@ -1,27 +1,21 @@
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useLocation } from "wouter";
 import { LanguageToggle } from "@/components/language-toggle";
 import { HeroSection } from "@/components/hero-section";
 import { CoverageCards } from "@/components/coverage-cards";
 import { BenefitsSection } from "@/components/benefits-section";
-import { QuoteWizard } from "@/components/quote-wizard";
-import { QuoteResults } from "@/components/quote-results";
-import type { QuoteResult } from "@/types/quote";
 import { Button } from "@/components/ui/button";
 
 export default function Home() {
   const { t } = useTranslation();
-  const [wizardOpen, setWizardOpen] = useState(false);
-  const [resultsOpen, setResultsOpen] = useState(false);
-  const [currentQuote, setCurrentQuote] = useState<QuoteResult | null>(null);
+  const [, navigate] = useLocation();
 
-  const handleQuoteGenerated = (quote: QuoteResult) => {
-    setCurrentQuote(quote);
-    setResultsOpen(true);
+  const handleGetQuote = () => {
+    navigate("/wizard");
   };
 
   const handleSelectCoverage = (type: string) => {
-    setWizardOpen(true);
+    navigate("/wizard");
   };
 
   return (
@@ -50,7 +44,7 @@ export default function Home() {
 
       {/* Main Content */}
       <main>
-        <HeroSection onGetQuote={() => setWizardOpen(true)} />
+        <HeroSection onGetQuote={handleGetQuote} />
         <CoverageCards onSelectCoverage={handleSelectCoverage} />
         <BenefitsSection />
         
@@ -65,7 +59,7 @@ export default function Home() {
             </p>
             <Button
               size="lg"
-              onClick={() => setWizardOpen(true)}
+              onClick={handleGetQuote}
               className="bg-white text-purple-600 hover:bg-yellow-400 hover:text-purple-700 shadow-lg font-bold"
               data-testid="button-get-quote-cta"
             >
@@ -133,18 +127,6 @@ export default function Home() {
         </div>
       </footer>
 
-      {/* Modals */}
-      <QuoteWizard
-        open={wizardOpen}
-        onOpenChange={setWizardOpen}
-        onQuoteGenerated={handleQuoteGenerated}
-      />
-      
-      <QuoteResults
-        open={resultsOpen}
-        onOpenChange={setResultsOpen}
-        quote={currentQuote}
-      />
     </div>
   );
 }
