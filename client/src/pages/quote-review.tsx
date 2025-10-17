@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import { useParams, useLocation } from 'wouter';
 import { useQuery } from '@tanstack/react-query';
 import { Header } from '@/components/header';
 import { Button } from '@/components/ui/button';
-import { Loader2 } from 'lucide-react';
+import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
+import { Loader2, ShieldCheck, Shield, Car } from 'lucide-react';
 
 const testResponse = {
     self: {
@@ -344,6 +346,7 @@ const testResponse = {
 export default function QuoteReview() {
     const { id } = useParams();
     const [, navigate] = useLocation();
+    const [paymentPeriod, setPaymentPeriod] = useState<'yearly' | 'monthly'>('yearly');
 
     // Fetch quote details from API
     const {
@@ -438,37 +441,242 @@ export default function QuoteReview() {
         );
     }
 
+    // Transform rating data into quote cards
+    const getQuoteCards = () => {
+        if (!quoteData?.rating) return [];
+
+        const ratingKeys = Object.keys(quoteData.rating);
+        return ratingKeys.map((key) => {
+            const ratingData = (quoteData.rating as any)[key];
+            const yearlyData = ratingData.yearly;
+            const monthlyData = ratingData.monthly;
+
+            // Map coverage type to display names and icons
+            const typeMapping: { [key: string]: { title: string; subtitle: string; Icon: any } } = {
+                comprehensive: { title: 'Type 1', subtitle: 'Comprehensive Insurance', Icon: ShieldCheck },
+                '2-plus': { title: 'Type 2+', subtitle: 'Enhanced Coverage', Icon: Shield },
+                '3-plus': { title: 'Type 3+', subtitle: 'Premium Third Party', Icon: Shield },
+                'third-party-only': { title: 'Third Party', subtitle: 'Basic Coverage', Icon: Car },
+                'third-party-bodily-injury-and-death': {
+                    title: 'Third Party Plus',
+                    subtitle: 'Bodily Injury & Death',
+                    Icon: Shield,
+                },
+            };
+
+            const displayInfo = typeMapping[key] || { title: key, subtitle: 'Insurance Coverage', Icon: Shield };
+
+            // Build features based on coverage details
+            const coverage = ratingData.coverage || {};
+            const features = [
+                {
+                    text: coverage.ownDamageCoverage
+                        ? `Own damage up to ฿${coverage.ownDamageCoverage?.toLocaleString()}`
+                        : 'No own damage coverage',
+                    available: !!coverage.ownDamageCoverage,
+                },
+                {
+                    text: `Third-party liability ฿${coverage.thirdPartyLiability?.toLocaleString() || '0'}`,
+                    available: !!coverage.thirdPartyLiability,
+                },
+                {
+                    text: coverage.floodCoverage ? 'Flood coverage included' : 'No flood coverage',
+                    available: coverage.floodCoverage || false,
+                },
+                {
+                    text: coverage.theftProtection ? 'Theft protection included' : 'No theft protection',
+                    available: coverage.theftProtection || false,
+                },
+                {
+                    text: coverage.authorizedRepairShop ? 'Authorized repair shop' : 'Any repair shop',
+                    available: coverage.authorizedRepairShop || false,
+                },
+                {
+                    text: `Deductible: ฿${coverage.deductible?.toLocaleString() || '0'}`,
+                    available: true,
+                },
+            ];
+
+            return {
+                type: key,
+                title: displayInfo.title,
+                subtitle: displayInfo.subtitle,
+                Icon: displayInfo.Icon,
+                price: yearlyData.totalPayableAmount,
+                monthlyPrice: Math.round(monthlyData.totalPayableAmount),
+                recommended: key === 'comprehensive',
+                features,
+            };
+        });
+    };
+
+    const quoteCards = getQuoteCards();
+
     return (
         <div className="min-h-screen bg-background">
             <Header showCta={false} />
 
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                <div className="bg-white rounded-2xl shadow-lg border border-border p-8">
-                    <div className="text-center mb-8">
-                        <div className="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
-                            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+                {/* Header Section */}
+                <div className="px-6 sm:px-8 py-8 mb-8">
+                    <div className="text-center mb-6">
+                        <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg className="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
                         </div>
-                        <h1 className="text-3xl font-bold text-primary mb-2">Quote Generated Successfully!</h1>
-                        <p className="text-muted-foreground">Your insurance quote is ready for review</p>
+                        <h1 className="text-3xl sm:text-4xl font-bold text-primary mb-2">Quote Generated Successfully!</h1>
+                        <p className="text-lg text-muted-foreground">Your insurance quote is ready for review</p>
                     </div>
 
-                    <div className="bg-muted/30 rounded-xl p-6 mb-6">
-                        <p className="text-sm text-muted-foreground mb-2">Quote ID</p>
-                        <p className="text-lg font-mono font-semibold text-primary">{id}</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+                        <div className="bg-background rounded-lg p-4 border border-border">
+                            <div className="text-xs text-muted-foreground mb-1 font-medium">Quote Number</div>
+                            <div className="font-semibold text-foreground text-sm">{quoteData?.number || id}</div>
+                        </div>
+                        <div className="bg-background rounded-lg p-4 border border-border">
+                            <div className="text-xs text-muted-foreground mb-1 font-medium">Status</div>
+                            <div className="font-semibold text-foreground">{quoteData?.status || 'Pending'}</div>
+                        </div>
+                        <div className="bg-background rounded-lg p-4 border border-border">
+                            <div className="text-xs text-muted-foreground mb-1 font-medium">Policy Term</div>
+                            <div className="font-semibold text-foreground">{quoteData?.policyTerm || 'Yearly'}</div>
+                        </div>
+                        <div className="bg-background rounded-lg p-4 border border-border">
+                            <div className="text-xs text-muted-foreground mb-1 font-medium">Coverage Period</div>
+                            <div className="font-semibold text-foreground text-sm">
+                                {quoteData?.startDate} to {quoteData?.endDate}
+                            </div>
+                        </div>
                     </div>
+                </div>
 
-                    <div className="space-y-4">
-                        <p className="text-center text-muted-foreground">Quote review page - Coming soon</p>
+                {/* Payment Period Toggle */}
+                <div className="px-6 sm:px-8 py-6 mb-8">
+                    <div className="flex items-center justify-center space-x-4">
+                        <span className="text-sm text-foreground font-medium">Payment:</span>
+                        <div className="inline-flex rounded-lg border border-border p-1 bg-white">
+                            <Button
+                                variant={paymentPeriod === 'yearly' ? 'default' : 'ghost'}
+                                size="sm"
+                                onClick={() => setPaymentPeriod('yearly')}
+                            >
+                                Yearly
+                            </Button>
+                            <Button
+                                variant={paymentPeriod === 'monthly' ? 'default' : 'ghost'}
+                                size="sm"
+                                onClick={() => setPaymentPeriod('monthly')}
+                            >
+                                Monthly
+                            </Button>
+                        </div>
                     </div>
+                </div>
 
-                    <div className="flex gap-4 mt-8">
-                        <Button variant="outline" onClick={handleBackToHome} className="flex-1">
-                            Back to Home
-                        </Button>
-                        <Button className="flex-1">Download Quote</Button>
+                {/* Quote Cards */}
+                <div className="grid md:grid-cols-3 gap-6 lg:gap-8 mb-8">
+                    {quoteCards.map((coverage) => {
+                        const displayPrice = paymentPeriod === 'yearly' ? coverage.price : coverage.monthlyPrice;
+                        const period = paymentPeriod === 'yearly' ? '/year' : '/month';
+
+                        return (
+                            <Card
+                                key={coverage.type}
+                                className={`${coverage.recommended ? 'border-2 border-primary shadow-lg' : 'border border-border'} hover:shadow-xl transition-all cursor-pointer group bg-white`}
+                            >
+                                <CardHeader>
+                                    <div className="flex items-start justify-between mb-4">
+                                        <coverage.Icon className="w-8 h-8 text-accent" />
+                                        {coverage.recommended && (
+                                            <span className="relative px-3 py-1.5 bg-gradient-to-r from-primary via-primary/95 to-primary/90 text-white text-xs font-semibold rounded-full shadow-lg overflow-hidden before:absolute before:inset-0 before:rounded-full before:p-[1.5px] before:bg-gradient-to-r before:from-yellow-400 before:via-amber-400 before:to-yellow-500 before:-z-10">
+                                                <span className="relative z-10">Recommended</span>
+                                            </span>
+                                        )}
+                                    </div>
+
+                                    <h3 className="text-2xl font-bold text-primary mb-2">
+                                        {coverage.title}
+                                    </h3>
+                                    <p className="text-sm text-muted-foreground mb-4">{coverage.subtitle}</p>
+                                </CardHeader>
+
+                                <CardContent className="pt-6">
+                                    <div className="space-y-3 mb-6">
+                                        {coverage.features.map((feature, idx) => (
+                                            <div key={idx} className="flex items-start space-x-2 text-sm">
+                                                <i className={`fas ${feature.available ? 'fa-check-circle text-accent' : 'fa-times-circle text-muted-foreground/50'} mt-0.5`}></i>
+                                                <span className={feature.available ? 'text-foreground' : 'text-muted-foreground line-through'}>
+                                                    {feature.text}
+                                                </span>
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    <div className="border-t border-border pt-4">
+                                        <div className="text-sm text-muted-foreground mb-2">Starting from</div>
+                                        <div className="flex items-end mb-4">
+                                            <span className="text-3xl font-bold text-primary">฿{displayPrice.toLocaleString()}</span>
+                                            <span className="text-muted-foreground ml-2 mb-1">{period}</span>
+                                        </div>
+                                        {paymentPeriod === 'yearly' && (
+                                            <div className="text-sm text-muted-foreground">or ฿{coverage.monthlyPrice.toLocaleString()}/month</div>
+                                        )}
+                                    </div>
+                                </CardContent>
+
+                                <CardFooter>
+                                    <Button
+                                        onClick={() => console.log('Selected plan:', coverage.type)}
+                                        variant={coverage.recommended ? 'default' : 'outline'}
+                                        className="w-full"
+                                    >
+                                        Select Plan
+                                    </Button>
+                                </CardFooter>
+                            </Card>
+                        );
+                    })}
+                </div>
+
+                {/* Additional Coverage Details */}
+                {/* {quoteData?.attributes && quoteData.attributes.length > 0 && (
+                    <div className="bg-white rounded-xl shadow-lg border border-border p-6 mb-8">
+                        <h2 className="text-xl font-bold text-primary mb-4">Additional Coverage Options</h2>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                            {quoteData.attributes.map((attr: any, idx: number) => (
+                                <div key={idx} className="bg-background rounded-lg p-4 border border-border">
+                                    <div className="text-sm font-medium text-muted-foreground mb-1">{attr.key_display}</div>
+                                    <div className="text-lg font-semibold text-foreground">{attr.value_display}</div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
+                )} */}
+
+                {/* Important Note */}
+                <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 mb-8">
+                    <div className="flex items-start space-x-3">
+                        <i className="fas fa-info-circle text-amber-600 text-xl mt-0.5"></i>
+                        <div>
+                            <h4 className="font-semibold text-amber-900 mb-1">Important Note</h4>
+                            <p className="text-sm text-amber-800">
+                                Prices shown are estimates based on the information provided. Actual prices may vary based on
+                                additional conditions. Please contact our team for an accurate quote.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex flex-col sm:flex-row gap-4">
+                    <Button variant="outline" onClick={handleBackToHome} className="flex-1">
+                        Back to Home
+                    </Button>
+                    <Button className="flex-1">
+                        <i className="fas fa-check-circle mr-2"></i>
+                        Activate Quote
+                    </Button>
                 </div>
             </div>
         </div>
