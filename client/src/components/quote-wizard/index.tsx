@@ -3,7 +3,12 @@ import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { StepIndicator } from "./step-indicator";
@@ -58,15 +63,39 @@ const wizardSteps = [
 
 // Simplified grouped steps for UI
 const stepGroups = [
-  { steps: [1, 2, 3, 4], component: VehicleInfoStep, title: "Vehicle Information" },
-  { steps: [5, 6, 7, 8], component: VehicleDetailsStep, title: "Vehicle Details" },
-  { steps: [9, 10, 11, 12], component: DriverInfoStep, title: "Driver Information" },
-  { steps: [13, 14, 15, 16], component: VehicleUsageStep, title: "Vehicle Usage" },
-  { steps: [17, 18, 19], component: CoverageSelectionStep, title: "Coverage Selection" },
+  {
+    steps: [1, 2, 3, 4],
+    component: VehicleInfoStep,
+    title: "Vehicle Information",
+  },
+  {
+    steps: [5, 6, 7, 8],
+    component: VehicleDetailsStep,
+    title: "Vehicle Details",
+  },
+  {
+    steps: [9, 10, 11, 12],
+    component: DriverInfoStep,
+    title: "Driver Information",
+  },
+  {
+    steps: [13, 14, 15, 16],
+    component: VehicleUsageStep,
+    title: "Vehicle Usage",
+  },
+  {
+    steps: [17, 18, 19],
+    component: CoverageSelectionStep,
+    title: "Coverage Selection",
+  },
   { steps: [20], component: ContactInfoStep, title: "Contact Information" },
 ];
 
-export function QuoteWizard({ open, onOpenChange, onQuoteGenerated }: QuoteWizardProps) {
+export function QuoteWizard({
+  open,
+  onOpenChange,
+  onQuoteGenerated,
+}: QuoteWizardProps) {
   const { t } = useTranslation();
   const { toast } = useToast();
   const [currentStepGroup, setCurrentStepGroup] = useState(0);
@@ -75,7 +104,7 @@ export function QuoteWizard({ open, onOpenChange, onQuoteGenerated }: QuoteWizar
     resolver: zodResolver(
       currentStepGroup === stepGroups.length - 1
         ? completeQuoteSchema
-        : z.any()
+        : z.any(),
     ),
     defaultValues: {
       carBrand: "",
@@ -132,7 +161,8 @@ export function QuoteWizard({ open, onOpenChange, onQuoteGenerated }: QuoteWizar
       toast({
         variant: "destructive",
         title: "Error",
-        description: error.message || "Failed to generate quote. Please try again.",
+        description:
+          error.message || "Failed to generate quote. Please try again.",
       });
     },
   });
@@ -144,6 +174,7 @@ export function QuoteWizard({ open, onOpenChange, onQuoteGenerated }: QuoteWizar
         setCurrentStepGroup(currentStepGroup + 1);
       } else {
         const formData = form.getValues();
+        console.log("Submitting form data:", formData);
         submitQuoteMutation.mutate(formData as QuoteFormData);
       }
     }
@@ -165,7 +196,7 @@ export function QuoteWizard({ open, onOpenChange, onQuoteGenerated }: QuoteWizar
         <div className="sticky top-0 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-600 border-b border-blue-700 z-10 px-6 sm:px-8 py-6">
           <div className="flex items-center justify-between mb-6">
             <DialogTitle className="text-2xl sm:text-3xl font-bold text-white">
-              {t('wizardTitle')}
+              {t("wizardTitle")}
             </DialogTitle>
             <DialogDescription className="sr-only">
               Complete the quote wizard to get your personalized insurance quote
@@ -180,16 +211,16 @@ export function QuoteWizard({ open, onOpenChange, onQuoteGenerated }: QuoteWizar
               <i className="fas fa-times text-xl"></i>
             </Button>
           </div>
-          
+
           <StepIndicator currentStep={currentStep} totalSteps={totalSteps} />
         </div>
-        
+
         <FormProvider {...form}>
           <Form {...form}>
             <div className="px-6 sm:px-8 py-8 bg-gradient-to-br from-blue-50/30 via-white to-purple-50/30">
               <CurrentStepComponent />
             </div>
-            
+
             <div className="sticky bottom-0 bg-gradient-to-r from-gray-50 to-blue-50 border-t border-border px-6 sm:px-8 py-6">
               <div className="flex items-center justify-between">
                 <Button
@@ -201,14 +232,14 @@ export function QuoteWizard({ open, onOpenChange, onQuoteGenerated }: QuoteWizar
                   data-testid="button-previous"
                 >
                   <i className="fas fa-arrow-left mr-2"></i>
-                  {t('previous')}
+                  {t("previous")}
                 </Button>
-                
+
                 <div className="flex items-center space-x-4">
                   <span className="text-sm text-muted">
-                    {t('step')} {currentStep} / {totalSteps}
+                    {t("step")} {currentStep} / {totalSteps}
                   </span>
-                  
+
                   <Button
                     type="button"
                     onClick={handleNext}
@@ -223,11 +254,11 @@ export function QuoteWizard({ open, onOpenChange, onQuoteGenerated }: QuoteWizar
                         ) : (
                           <i className="fas fa-paper-plane mr-2"></i>
                         )}
-                        {t('submit')}
+                        {t("submit")}
                       </>
                     ) : (
                       <>
-                        {t('next')}
+                        {t("next")}
                         <i className="fas fa-arrow-right ml-2"></i>
                       </>
                     )}
