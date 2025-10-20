@@ -3,13 +3,15 @@ import { useParams, useLocation } from 'wouter';
 import { Header } from '@/components/header';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { CheckCircle2, FileDown, FileText, Loader2, Mail } from 'lucide-react';
+import { CheckCircle2, FileText, Loader2, Mail } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
+import { useToast } from '@/hooks/use-toast';
 
 export default function PolicyIssuance() {
     const { id } = useParams();
     const [, navigate] = useLocation();
+    const { toast } = useToast();
 
     useEffect(() => {
         document.title = "Your Policy - MotoQuoteThai";
@@ -40,6 +42,33 @@ export default function PolicyIssuance() {
         navigate('/');
     };
 
+    const handleDownloadPolicy = () => {
+        const pdfUrl = policyData?.currentVersion?.pdfFileFullUrl;
+
+        if (pdfUrl) {
+            // Create a temporary anchor element to trigger download
+            const link = document.createElement('a');
+            link.href = pdfUrl;
+            link.download = `policy-${policyData?.number || id}.pdf`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            // Show success toast
+            toast({
+                title: 'Download Started',
+                description: 'Your policy document is being downloaded.',
+            });
+        } else {
+            // Show error toast if URL not available
+            toast({
+                title: 'Download Failed',
+                description: 'Policy document URL is not available.',
+                variant: 'destructive',
+            });
+        }
+    };
+
     // Loading state
     if (isLoading) {
         return (
@@ -59,41 +88,41 @@ export default function PolicyIssuance() {
     }
 
     // Error state
-    if (error) {
-        return (
-            <div className="min-h-screen bg-background">
-                <Header showCta={false} />
-                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                    <div className="bg-white rounded-2xl shadow-lg border border-border p-8">
-                        <div className="text-center mb-8">
-                            <div className="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <svg
-                                    className="w-8 h-8 text-white"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M6 18L18 6M6 6l12 12"
-                                    />
-                                </svg>
-                            </div>
-                            <h1 className="text-3xl font-bold text-primary mb-2">Error Loading Policy</h1>
-                            <p className="text-muted-foreground">
-                                {error instanceof Error ? error.message : 'Failed to load policy details'}
-                            </p>
-                        </div>
-                        <div className="flex justify-center">
-                            <Button onClick={handleBackToHome}>Back to Home</Button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        );
-    }
+    // if (error) {
+    //     return (
+    //         <div className="min-h-screen bg-background">
+    //             <Header showCta={false} />
+    //             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    //                 <div className="bg-white rounded-2xl shadow-lg border border-border p-8">
+    //                     <div className="text-center mb-8">
+    //                         <div className="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
+    //                             <svg
+    //                                 className="w-8 h-8 text-white"
+    //                                 fill="none"
+    //                                 stroke="currentColor"
+    //                                 viewBox="0 0 24 24"
+    //                             >
+    //                                 <path
+    //                                     strokeLinecap="round"
+    //                                     strokeLinejoin="round"
+    //                                     strokeWidth={2}
+    //                                     d="M6 18L18 6M6 6l12 12"
+    //                                 />
+    //                             </svg>
+    //                         </div>
+    //                         <h1 className="text-3xl font-bold text-primary mb-2">Error Loading Policy</h1>
+    //                         <p className="text-muted-foreground">
+    //                             {error instanceof Error ? error.message : 'Failed to load policy details'}
+    //                         </p>
+    //                     </div>
+    //                     <div className="flex justify-center">
+    //                         <Button onClick={handleBackToHome}>Back to Home</Button>
+    //                     </div>
+    //                 </div>
+    //             </div>
+    //         </div>
+    //     );
+    // }
 
     const policy = {
         number: policyData?.number || id,
@@ -164,16 +193,10 @@ export default function PolicyIssuance() {
 
                 {/* Action Buttons */}
                 <div className="space-y-3">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <Button className="w-full" size="lg">
-                            <FileDown className="w-4 h-4 mr-2" />
-                            Download Receipt
-                        </Button>
-                        <Button className="w-full" size="lg">
-                            <FileText className="w-4 h-4 mr-2" />
-                            Download Policy Document
-                        </Button>
-                    </div>
+                    <Button className="w-full" size="lg" onClick={handleDownloadPolicy}>
+                        <FileText className="w-4 h-4 mr-2" />
+                        Download Policy Document
+                    </Button>
                     <Button variant="outline" className="w-full" size="lg">
                         <Mail className="w-4 h-4 mr-2" />
                         Email Policy Document
