@@ -12,6 +12,7 @@ export default function PolicyIssuance() {
     const [, navigate] = useLocation();
 
     useEffect(() => {
+        document.title = "Your Policy - MotoQuoteThai";
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }, []);
 

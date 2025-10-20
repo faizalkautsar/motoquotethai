@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "wouter";
 import { Header } from "@/components/header";
@@ -9,6 +10,10 @@ import { Button } from "@/components/ui/button";
 export default function Home() {
   const { t } = useTranslation();
   const [, navigate] = useLocation();
+
+  useEffect(() => {
+    document.title = "MotoQuoteThai - Car Insurance Quote Calculator";
+  }, []);
 
   const handleGetQuote = () => {
     navigate("/get-your-quote");

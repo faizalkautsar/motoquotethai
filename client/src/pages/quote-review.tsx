@@ -776,6 +776,7 @@ export default function QuoteReview() {
     const [isChangingPlan, setIsChangingPlan] = useState(false);
 
     useEffect(() => {
+        document.title = "Your Quote - MotoQuoteThai";
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }, []);
 

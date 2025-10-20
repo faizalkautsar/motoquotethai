@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -197,6 +197,10 @@ export default function WizardPage() {
   const [currentStepGroup, setCurrentStepGroup] = useState(0);
   const [resultsOpen, setResultsOpen] = useState(false);
   const [currentQuote, setCurrentQuote] = useState<QuoteResult | null>(null);
+
+  useEffect(() => {
+    document.title = "Get Your Quote - MotoQuoteThai";
+  }, []);
 
   const form = useForm<QuoteFormData>({
     resolver: zodResolver(completeQuoteSchema),
