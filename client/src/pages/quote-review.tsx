@@ -12,6 +12,7 @@ import {
     DialogHeader,
     DialogTitle,
 } from '@/components/ui/dialog';
+import { useToast } from '@/hooks/use-toast';
 import { Loader2, ShieldCheck, Shield, Car } from 'lucide-react';
 import { apiRequest } from '@/lib/queryClient';
 import { parsePayload } from '@/lib/parsePayload';
@@ -767,6 +768,7 @@ export default function QuoteReview() {
     const { id } = useParams();
     const [, navigate] = useLocation();
     const queryClient = useQueryClient();
+    const { toast } = useToast();
     const [paymentPeriod, setPaymentPeriod] = useState<'yearly' | 'monthly'>('yearly');
     const [showConfirmDialog, setShowConfirmDialog] = useState(false);
     const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
@@ -806,6 +808,63 @@ export default function QuoteReview() {
 
     const handleBackToHome = () => {
         navigate('/');
+    };
+
+    const handleActivatePolicy = async () => {
+        setIsActivating(true);
+
+        try {
+            // Get today's date in YYYY-MM-DD format
+            const today = new Date().toISOString().split('T')[0];
+
+            // Create offline payment to activate policy
+            const response = await apiRequest(
+                'POST',
+                'https://sandbox-bo.i2go.io/api/v3/payment-service/offline-payments/',
+                {
+                    incompleteOrder: id,
+                    paymentDate: today,
+                    startDate: today,
+                    paymentOption: 'Others',
+                    addTask: false,
+                    sendEmail: true,
+                }
+            );
+
+            const data = await response.json();
+            console.log('Policy activated:', data);
+
+            // Extract policy ID from the response links
+            const policyLink = data.links?.find((link: any) => link.rel === 'policies');
+            const policyId = policyLink?.href?.split('/').filter(Boolean).pop();
+
+            setIsActivating(false);
+            setShowConfirmDialog(false);
+
+            // Show success toast
+            toast({
+                title: 'Policy Activated Successfully!',
+                description: 'Your insurance policy has been activated.',
+            });
+
+            // Redirect to policy page with the policy ID
+            if (policyId) {
+                navigate(`/your-policy/${policyId}`);
+            } else {
+                // Fallback to quote ID if policy ID not found
+                navigate(`/your-policy/${id}`);
+            }
+        } catch (error) {
+            console.error('Error activating policy:', error);
+            setIsActivating(false);
+
+            // Show error toast
+            toast({
+                title: 'Activation Failed',
+                description: error instanceof Error ? error.message : 'Failed to activate policy. Please try again.',
+                variant: 'destructive',
+            });
+        }
     };
 
     const handlePlanChange = async (planType: string) => {
@@ -1304,21 +1363,7 @@ export default function QuoteReview() {
                                     >
                                         Cancel
                                     </Button>
-                                    <Button
-                                        className="flex-1"
-                                        onClick={() => {
-                                            setIsActivating(true);
-
-                                            // Simulate 5 second activation process
-                                            setTimeout(() => {
-                                                console.log('Quote activated:', quoteData?.number);
-                                                setIsActivating(false);
-                                                setShowConfirmDialog(false);
-                                                // Redirect to policy issuance page
-                                                navigate(`/your-policy/${id}`);
-                                            }, 5000);
-                                        }}
-                                    >
+                                    <Button className="flex-1" onClick={handleActivatePolicy}>
                                         <i className="fas fa-check-circle mr-2"></i>
                                         Confirm Activation
                                     </Button>
