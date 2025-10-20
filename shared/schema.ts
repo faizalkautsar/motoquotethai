@@ -13,24 +13,24 @@ export const quotes = pgTable("quotes", {
   chassisNumber: text("chassis_number").notNull(),
   engineNumber: text("engine_number").notNull(),
   color: text("color").notNull(),
-  
+
   // Driver Information
   driverAge: text("driver_age").notNull(),
   drivingExperience: text("driving_experience").notNull(),
   claimsHistory: text("claims_history").notNull(),
   hasNCB: text("has_ncb").notNull(),
-  
+
   // Vehicle Usage
   vehicleUsage: text("vehicle_usage").notNull(),
   annualMileage: text("annual_mileage").notNull(),
   parkingLocation: text("parking_location").notNull(),
   hasModifications: text("has_modifications").notNull(),
-  
+
   // Coverage Selection
   coverageType: text("coverage_type").notNull(),
   deductible: integer("deductible").notNull(),
   additionalCoverage: jsonb("additional_coverage").$type<string[]>(),
-  
+
   // Contact Information
   title: text("title").notNull(),
   gender: text("gender").notNull(),
@@ -44,12 +44,12 @@ export const quotes = pgTable("quotes", {
   province: text("province").notNull(),
   postalCode: text("postal_code").notNull(),
   occupation: text("occupation").notNull(),
-  
+
   // Quote Results
   type1Price: integer("type1_price"),
   type2Price: integer("type2_price"),
   type3Price: integer("type3_price"),
-  
+
   createdAt: timestamp("created_at").defaultNow(),
 });
 
@@ -77,7 +77,7 @@ export const vehicleDetailsSchema = z.object({
 });
 
 export const coverageSelectionSchema = z.object({
-  coverageType: z.enum(["type1", "type2", "type3"]),
+  coverageType: z.enum(["comprehensive", "2-plus", "3-plus"]),
   deductible: z.number(),
   additionalCoverage: z.array(z.string()).optional(),
 });
