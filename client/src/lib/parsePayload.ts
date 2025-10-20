@@ -904,7 +904,7 @@ export function parsePayload(quote = testResponse, newPlan?: string) {
         })),
         coverages: [
             {
-                coverageType: coverageType,
+                coverageType: "comprehensive",
                 premium: 100,
                 deductible: deductible,
             },
