@@ -42,47 +42,19 @@ export default function PolicyIssuance() {
         navigate('/');
     };
 
-    const handleDownloadPolicy = async () => {
+    const handleDownloadPolicy = () => {
         const pdfUrl = policyData?.currentVersion?.pdfFileFullUrl;
         // const pdfUrl = 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'; // Placeholder PDF URL
 
         if (pdfUrl) {
-            try {
-                // Show downloading toast
-                toast({
-                    title: 'Downloading...',
-                    description: 'Please wait while we prepare your policy document.',
-                });
+            // Open PDF in new tab
+            window.open(pdfUrl, '_blank');
 
-                // Fetch the file as a blob
-                const response = await fetch(pdfUrl);
-                const blob = await response.blob();
-
-                // Create a blob URL and trigger download
-                const blobUrl = window.URL.createObjectURL(blob);
-                const link = document.createElement('a');
-                link.href = blobUrl;
-                link.download = `policy-${policyData?.number || id}.pdf`;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-
-                // Clean up the blob URL
-                window.URL.revokeObjectURL(blobUrl);
-
-                // Show success toast
-                toast({
-                    title: 'Download Started',
-                    description: 'Your policy document is being downloaded.',
-                });
-            } catch (error) {
-                console.error('Error downloading policy:', error);
-                toast({
-                    title: 'Download Failed',
-                    description: 'Failed to download policy document. Please try again.',
-                    variant: 'destructive',
-                });
-            }
+            // Show success toast
+            toast({
+                title: 'Opening Document',
+                description: 'Your policy document is opening in a new tab.',
+            });
         } else {
             // Show error toast if URL not available
             toast({
@@ -112,41 +84,41 @@ export default function PolicyIssuance() {
     }
 
     // Error state
-    // if (error) {
-    //     return (
-    //         <div className="min-h-screen bg-background">
-    //             <Header showCta={false} />
-    //             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    //                 <div className="bg-white rounded-2xl shadow-lg border border-border p-8">
-    //                     <div className="text-center mb-8">
-    //                         <div className="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
-    //                             <svg
-    //                                 className="w-8 h-8 text-white"
-    //                                 fill="none"
-    //                                 stroke="currentColor"
-    //                                 viewBox="0 0 24 24"
-    //                             >
-    //                                 <path
-    //                                     strokeLinecap="round"
-    //                                     strokeLinejoin="round"
-    //                                     strokeWidth={2}
-    //                                     d="M6 18L18 6M6 6l12 12"
-    //                                 />
-    //                             </svg>
-    //                         </div>
-    //                         <h1 className="text-3xl font-bold text-primary mb-2">Error Loading Policy</h1>
-    //                         <p className="text-muted-foreground">
-    //                             {error instanceof Error ? error.message : 'Failed to load policy details'}
-    //                         </p>
-    //                     </div>
-    //                     <div className="flex justify-center">
-    //                         <Button onClick={handleBackToHome}>Back to Home</Button>
-    //                     </div>
-    //                 </div>
-    //             </div>
-    //         </div>
-    //     );
-    // }
+    if (error) {
+        return (
+            <div className="min-h-screen bg-background">
+                <Header showCta={false} />
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                    <div className="bg-white rounded-2xl shadow-lg border border-border p-8">
+                        <div className="text-center mb-8">
+                            <div className="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <svg
+                                    className="w-8 h-8 text-white"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M6 18L18 6M6 6l12 12"
+                                    />
+                                </svg>
+                            </div>
+                            <h1 className="text-3xl font-bold text-primary mb-2">Error Loading Policy</h1>
+                            <p className="text-muted-foreground">
+                                {error instanceof Error ? error.message : 'Failed to load policy details'}
+                            </p>
+                        </div>
+                        <div className="flex justify-center">
+                            <Button onClick={handleBackToHome}>Back to Home</Button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     const policy = {
         number: policyData?.number || id,
