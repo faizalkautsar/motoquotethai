@@ -13,7 +13,7 @@ export interface VehicleDetails {
 }
 
 export interface CoverageSelection {
-  coverageType: "type1" | "type2" | "type3";
+  coverageType: "comprehensive" | "type2" | "type3";
   deductible: number;
   additionalCoverage?: string[];
 }
