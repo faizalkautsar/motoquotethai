@@ -42,23 +42,47 @@ export default function PolicyIssuance() {
         navigate('/');
     };
 
-    const handleDownloadPolicy = () => {
+    const handleDownloadPolicy = async () => {
         const pdfUrl = policyData?.currentVersion?.pdfFileFullUrl;
+        // const pdfUrl = 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'; // Placeholder PDF URL
 
         if (pdfUrl) {
-            // Create a temporary anchor element to trigger download
-            const link = document.createElement('a');
-            link.href = pdfUrl;
-            link.download = `policy-${policyData?.number || id}.pdf`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            try {
+                // Show downloading toast
+                toast({
+                    title: 'Downloading...',
+                    description: 'Please wait while we prepare your policy document.',
+                });
 
-            // Show success toast
-            toast({
-                title: 'Download Started',
-                description: 'Your policy document is being downloaded.',
-            });
+                // Fetch the file as a blob
+                const response = await fetch(pdfUrl);
+                const blob = await response.blob();
+
+                // Create a blob URL and trigger download
+                const blobUrl = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = blobUrl;
+                link.download = `policy-${policyData?.number || id}.pdf`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                // Clean up the blob URL
+                window.URL.revokeObjectURL(blobUrl);
+
+                // Show success toast
+                toast({
+                    title: 'Download Started',
+                    description: 'Your policy document is being downloaded.',
+                });
+            } catch (error) {
+                console.error('Error downloading policy:', error);
+                toast({
+                    title: 'Download Failed',
+                    description: 'Failed to download policy document. Please try again.',
+                    variant: 'destructive',
+                });
+            }
         } else {
             // Show error toast if URL not available
             toast({
