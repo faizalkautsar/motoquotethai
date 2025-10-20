@@ -32,7 +32,7 @@ export function ContactInfoStep() {
           {t('contactInfoSubtitle')}
         </p>
       </div>
-      
+
       <div className="grid sm:grid-cols-2 gap-6">
         <FormField
           control={form.control}
@@ -47,16 +47,16 @@ export function ContactInfoStep() {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="mr">Mr. (นาย)</SelectItem>
-                  <SelectItem value="mrs">Mrs. (นาง)</SelectItem>
-                  <SelectItem value="miss">Miss (นางสาว)</SelectItem>
+                  <SelectItem value="Mr">Mr. (นาย)</SelectItem>
+                  <SelectItem value="Mrs">Mrs. (นาง)</SelectItem>
+                  <SelectItem value="Miss">Miss (นางสาว)</SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage />
             </FormItem>
           )}
         />
-        
+
         <FormField
           control={form.control}
           name="gender"
@@ -70,8 +70,8 @@ export function ContactInfoStep() {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="male">Male (ชาย)</SelectItem>
-                  <SelectItem value="female">Female (หญิง)</SelectItem>
+                  <SelectItem value="Male">Male (ชาย)</SelectItem>
+                  <SelectItem value="Female">Female (หญิง)</SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage />
@@ -79,7 +79,7 @@ export function ContactInfoStep() {
           )}
         />
       </div>
-      
+
       <div className="grid sm:grid-cols-2 gap-6">
         <FormField
           control={form.control}
@@ -94,7 +94,7 @@ export function ContactInfoStep() {
             </FormItem>
           )}
         />
-        
+
         <FormField
           control={form.control}
           name="lastName"
@@ -109,7 +109,7 @@ export function ContactInfoStep() {
           )}
         />
       </div>
-      
+
       <FormField
         control={form.control}
         name="birthDate"
@@ -123,7 +123,7 @@ export function ContactInfoStep() {
           </FormItem>
         )}
       />
-      
+
       <FormField
         control={form.control}
         name="idCard"
@@ -137,7 +137,7 @@ export function ContactInfoStep() {
           </FormItem>
         )}
       />
-      
+
       <FormField
         control={form.control}
         name="phone"
@@ -151,7 +151,7 @@ export function ContactInfoStep() {
           </FormItem>
         )}
       />
-      
+
       <FormField
         control={form.control}
         name="email"
@@ -165,7 +165,7 @@ export function ContactInfoStep() {
           </FormItem>
         )}
       />
-      
+
       <FormField
         control={form.control}
         name="address"
@@ -179,7 +179,7 @@ export function ContactInfoStep() {
           </FormItem>
         )}
       />
-      
+
       <div className="grid sm:grid-cols-2 gap-6">
         <FormField
           control={form.control}
@@ -204,7 +204,7 @@ export function ContactInfoStep() {
             </FormItem>
           )}
         />
-        
+
         <FormField
           control={form.control}
           name="postalCode"
@@ -219,7 +219,7 @@ export function ContactInfoStep() {
           )}
         />
       </div>
-      
+
       <FormField
         control={form.control}
         name="occupation"
@@ -243,7 +243,7 @@ export function ContactInfoStep() {
           </FormItem>
         )}
       />
-      
+
       <FormField
         control={form.control}
         name="agreeTerms"
