@@ -489,13 +489,12 @@ export default function WizardPage() {
           activatePolicy: false,
       };
 
-      debugger;
       const response = await apiRequest('POST', 'https://sandbox-bo.i2go.io/api/v3/embedded-service/quotes/', raw)
           .then((response) => response.json())
           .catch((error) => {
               console.error(error);
-              // throw new Error(error);
-              return testResponse;
+              throw new Error(error);
+              // return testResponse;
           });
 
 
