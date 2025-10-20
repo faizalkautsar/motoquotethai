@@ -274,10 +274,6 @@ export default function WizardPage() {
         occupation,
       } = data;
 
-      const myHeaders = new Headers();
-      myHeaders.append("Authorization", "i2go b2049fae35094bf126e45ed19a106d68303cde25");
-      myHeaders.append("Content-Type", "application/json");
-
       const startDate = new Date();
       const endDate = new Date();
       endDate.setFullYear(endDate.getFullYear() + 1);

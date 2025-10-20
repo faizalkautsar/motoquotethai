@@ -12,9 +12,20 @@ export async function apiRequest(
   url: string,
   data?: unknown | undefined,
 ): Promise<Response> {
+  const headers: Record<string, string> = {};
+
+  if (data) {
+    headers["Content-Type"] = "application/json";
+  }
+
+  // Add i2go authorization header for external API calls
+  if (url.includes('i2go.io')) {
+      headers["Authorization"] = 'i2go b2049fae35094bf126e45ed19a106d68303cde25';
+  }
+
   const res = await fetch(url, {
     method,
-    headers: data ? { "Content-Type": "application/json" } : {},
+    headers,
     body: data ? JSON.stringify(data) : undefined,
     credentials: "include",
   });
@@ -29,8 +40,20 @@ export const getQueryFn: <T>(options: {
 }) => QueryFunction<T> =
   ({ on401: unauthorizedBehavior }) =>
   async ({ queryKey }) => {
-    const res = await fetch(queryKey.join("/") as string, {
+    const url = queryKey.join("/") as string;
+    const headers: Record<string, string> = {};
+
+    // Add i2go authorization header for external API calls
+    if (url.includes('i2go.io')) {
+      const token = import.meta.env.VITE_I2GO_API_TOKEN;
+      if (token) {
+        headers["Authorization"] = token;
+      }
+    }
+
+    const res = await fetch(url, {
       credentials: "include",
+      headers,
     });
 
     if (unauthorizedBehavior === "returnNull" && res.status === 401) {
