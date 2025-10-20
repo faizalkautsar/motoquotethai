@@ -820,7 +820,7 @@ export default function QuoteReview() {
             // Make PUT API call to update the quote
             const response = await apiRequest(
                 'PUT',
-                'https://sandbox-bo.i2go.io/api/v3/embedded-service/quotes/',
+                `https://sandbox-bo.i2go.io/api/v3/embedded-service/quotes/${quoteData.id}/`,
                 payload
             );
 
