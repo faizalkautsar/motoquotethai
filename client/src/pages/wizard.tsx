@@ -282,7 +282,7 @@ export default function WizardPage() {
       const endDate = new Date();
       endDate.setFullYear(endDate.getFullYear() + 1);
 
-      const raw = JSON.stringify({
+      const raw = {
           product: 'motor-vehicle',
           plan: coverageType,
           effectiveDate: startDate.toISOString().split("T")[0],
@@ -487,21 +487,17 @@ export default function WizardPage() {
           checkBusinessRules: false,
           saveToDB: true,
           activatePolicy: false,
-      });
-
-      const requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body: raw,
-        redirect: "follow"
       };
 
-      const response = await apiRequest('https://sandbox-bo.i2go.io/api/v3/embedded-service/quotes/', requestOptions as any)
+      debugger;
+      const response = await apiRequest('POST', 'https://sandbox-bo.i2go.io/api/v3/embedded-service/quotes/', raw)
           .then((response) => response.json())
           .catch((error) => {
               console.error(error);
+              // throw new Error(error);
               return testResponse;
           });
+
 
       return response;
 
