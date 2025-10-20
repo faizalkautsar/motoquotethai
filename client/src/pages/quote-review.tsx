@@ -1254,7 +1254,7 @@ export default function QuoteReview() {
                                             </h3>
                                             <p className="text-muted-foreground">This may take a few moments...</p>
                                         </div>
-                                        <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 w-full max-w-md">
+                                        <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 w-full max-w-lg">
                                             <div className="flex items-start space-x-3">
                                                 <i className="fas fa-exclamation-circle text-amber-600 mt-0.5"></i>
                                                 <div className="text-sm text-amber-800">
