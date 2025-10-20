@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useLocation } from 'wouter';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Header } from '@/components/header';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
@@ -766,6 +766,7 @@ const testResponse = {
 export default function QuoteReview() {
     const { id } = useParams();
     const [, navigate] = useLocation();
+    const queryClient = useQueryClient();
     const [paymentPeriod, setPaymentPeriod] = useState<'yearly' | 'monthly'>('yearly');
     const [showConfirmDialog, setShowConfirmDialog] = useState(false);
     const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
@@ -829,6 +830,9 @@ export default function QuoteReview() {
 
             // Update the selected plan
             setSelectedPlan(planType);
+
+            // Invalidate the query to refetch latest data
+            queryClient.invalidateQueries({ queryKey: [`quote-${id}`] });
         } catch (error) {
             console.error('Error updating plan:', error);
             // Optionally show an error message to the user
