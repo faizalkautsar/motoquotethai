@@ -828,7 +828,7 @@ export function parsePayload(quote = testResponse, newPlan?: string) {
                 value: 400,
                 value_display: '+฿400/year',
             },
-        ],
+        ].filter(Boolean),
         policy_headers: [
             {
                 key: 'source',
