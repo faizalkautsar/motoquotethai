@@ -15,21 +15,21 @@ export function CoverageSelectionStep() {
 
   const coverageTypes = [
     {
-      value: 'type1',
+      value: 'comprehensive',
       title: 'Type 1 - Comprehensive',
       description: 'Full protection including own damage',
       recommended: true,
       price: '~฿15,000',
     },
     {
-      value: 'type2',
+      value: '2-plus',
       title: 'Type 2+ - Major Damage',
       description: 'Fire, theft & third-party coverage',
       recommended: false,
       price: '~฿8,500',
     },
     {
-      value: 'type3',
+      value: '3-plus',
       title: 'Type 3 - Third Party',
       description: 'Basic third-party liability only',
       recommended: false,
@@ -56,7 +56,7 @@ export function CoverageSelectionStep() {
           {t('coverageSelectionSubtitle')}
         </p>
       </div>
-      
+
       <FormField
         control={form.control}
         name="coverageType"
@@ -101,7 +101,7 @@ export function CoverageSelectionStep() {
           </FormItem>
         )}
       />
-      
+
       <FormField
         control={form.control}
         name="deductible"
@@ -143,7 +143,7 @@ export function CoverageSelectionStep() {
           </FormItem>
         )}
       />
-      
+
       <FormField
         control={form.control}
         name="additionalCoverage"
